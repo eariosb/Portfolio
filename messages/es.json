@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "portfolio": "Portafolio",
+    "blog": "Blog",
+    "courses": "Cursos",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "name": "Esneider Ríos",
+    "title": "Estadístico",
+    "subtitle": "Análisis estadístico combinado con desarrollo de software para construir herramientas que generan valor real a partir de situaciones complejas.",
+    "cta_portfolio": "Ver Portafolio",
+    "cta_contact": "Contactar"
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "description": "Con más de una década de experiencia dirigiendo negocios propios en áreas comerciales, administrativas y financieras, aporto una visión integral que combina el análisis cuantitativo con el entendimiento práctico del negocio. Especialista en análisis bayesiano, modelos lineales mixtos, machine learning y series de tiempo. Desarrollador de aplicaciones Shiny y web (Next.js) en producción. Experto en LegalTech, con enfoque en jurimetría y sistemas de inteligencia jurídica predictiva.",
+    "skills_title": "Áreas de Expertise"
+  },
+  "aboutPage": {
+    "title": "Sobre Mí",
+    "role": "Estadístico · Desarrollador Full Stack · LegalTech",
+    "bio1": "Con más de una década de experiencia dirigiendo negocios propios en áreas comerciales, administrativas y financieras, aporto una visión integral que combina el análisis cuantitativo con el entendimiento práctico del negocio.",
+    "bio2": "Especialista en análisis bayesiano, modelos lineales mixtos, machine learning y series de tiempo. Desarrollador de aplicaciones Shiny y web (Next.js) en producción. Experto en LegalTech, con enfoque en jurimetría y sistemas de inteligencia jurídica predictiva.",
+    "values_title": "Valores & Carácter",
+    "skills_title": "Herramientas Técnicas",
+    "education_title": "Formación Académica",
+    "languages_title": "Idiomas",
+    "complementary_title": "Formación Continua",
+    "edu_unal_name": "Universidad Nacional de Colombia",
+    "edu_unal_degree": "Pregrado en Estadística — Sede Medellín",
+    "edu_unal_period": "En curso · últimos semestres",
+    "edu_unal_desc": "Modelado estadístico, procesamiento e interpretación de información, análisis de tendencias y comportamientos, e insights orientados a la toma de decisiones, alertas y proyecciones en entornos de negocio y control de procesos.",
+    "edu_academlo_name": "Academlo",
+    "edu_academlo_degree": "Desarrollo Web Full Stack",
+    "edu_academlo_period": "2023 — 2024",
+    "edu_academlo_desc": "Diseño y construcción de aplicaciones web end-to-end: back-end con Node.js, Express y NestJS; front-end con HTML, CSS, Tailwind, ReactJS y Next.js.",
+    "lang_spanish": "Español",
+    "lang_spanish_level": "Nativo",
+    "lang_english": "Inglés",
+    "lang_english_level": "Intermedio-Alto · B2",
+    "download_cv": "Descargar CV",
+    "teaching_title": "Docencia & Cursos Creados",
+    "teaching_p1": "Además de mis proyectos de análisis de datos, he diseñado varios cursos interactivos en formato webapp, disponibles en la sección de Portafolio.",
+    "teaching_p2": "He dado clases particulares a estudiantes de otras áreas del conocimiento (salud, derecho, ingeniería) y, para ordenar ese contenido y compartirlo fácilmente en línea, lo convierto en cursos interactivos tipo webapp.",
+    "teaching_link": "Ver cursos en el Portafolio"
+  },
+  "featured": {
+    "title": "Proyectos Destacados",
+    "subtitle": "Aplicaciones desplegadas en producción",
+    "view_all": "Ver todo el portafolio",
+    "view_app": "Abrir app",
+    "view_code": "Ver código"
+  },
+  "portfolio": {
+    "title": "Portafolio",
+    "subtitle": "Aplicaciones y proyectos en producción",
+    "filter_all": "Todos",
+    "filter_shiny": "Shiny Apps",
+    "filter_web": "Apps Web",
+    "filter_ml": "ML / IA",
+    "view_app": "Abrir app",
+    "no_results": "No hay proyectos en esta categoría"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Artículos sobre estadística, machine learning y LegalTech",
+    "read_more": "Leer más",
+    "min_read": "min de lectura",
+    "no_posts": "Próximamente..."
+  },
+  "courses": {
+    "title": "Cursos",
+    "subtitle": "Material educativo en estadística, LegalTech y ciencia de datos",
+    "modules": "módulos",
+    "start_course": "Ir al curso",
+    "view_resources": "Ver recursos",
+    "level_basic": "Básico",
+    "level_intermediate": "Intermedio",
+    "level_advanced": "Avanzado"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tienes un proyecto? Hablemos.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "message": "Mensaje",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado con éxito!",
+    "error": "Error al enviar. Intenta de nuevo.",
+    "or_reach": "O encuéntrame en"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "built_with": "Construido con Next.js"
+  }
+}

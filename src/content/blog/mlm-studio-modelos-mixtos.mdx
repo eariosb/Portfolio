@@ -1,0 +1,53 @@
+---
+title: "MLM Studio: cómo construí una app que hace accesible el análisis longitudinal"
+titleEn: "MLM Studio: how I built an app that makes longitudinal analysis accessible"
+date: "2025-03-10"
+tags: ["Modelos Mixtos", "Shiny", "R", "lme4", "Longitudinal"]
+excerpt: "Muchos investigadores entienden la teoría de los modelos lineales mixtos pero encuentran una brecha al implementarlos. MLM Studio nació para cerrar esa brecha: flujo completo de análisis sin escribir una sola línea de código."
+excerptEn: "Many researchers understand the theory of linear mixed models but find a gap when implementing them. MLM Studio was born to close that gap: complete analysis workflow without writing a single line of code."
+readingTime: 10
+---
+
+## El problema que quise resolver
+
+En el contexto académico de la Escuela de Estadística de la UNAL, detecté un patrón recurrente: profesionales que entienden perfectamente la teoría de los modelos lineales mixtos (MLM) pero enfrentan una brecha importante al momento de implementarlos, interpretarlos y comunicar sus resultados con rigor.
+
+La solución obvia era código. Pero el código tiene un costo de entrada que muchos investigadores empíricos —en ciencias de la salud, educación, psicología, ciencias del deporte— no están dispuestos o no pueden pagar.
+
+**MLM Studio** nació para cerrar esa brecha.
+
+## Flujo de siete etapas
+
+La aplicación está organizada en siete pestañas que corresponden a siete etapas del análisis, en el orden estadísticamente correcto:
+
+1. **Datos** — Importación, transformación wide→long, dataset demo
+2. **Descriptivos** — Estadísticos por grupo y momento, Shapiro-Wilk contextual
+3. **Distribución** — Cuatro modos de visualización, Levene Brown-Forsythe
+4. **Perfiles longitudinales** — Espagueti, trellis, boxplot, promedios, combinado
+5. **Estimaciones OLS individuales** — Interceptos y pendientes por sujeto
+6. **Modelo mixto** — lme4 + lmerTest, efectos fijos/aleatorios, ICC, EBLUPs
+7. **Comparación de modelos** — LRT, AIC, BIC, ΔAIC, ΔBIC con recomendación automática
+
+## La decisión técnica clave: interpretación automática
+
+Cada resultado va acompañado de su interpretación en lenguaje natural. Por ejemplo, el ICC se clasifica automáticamente según los criterios de Cicchetti (1994):
+
+- < 0.40 → Pobre
+- 0.40–0.59 → Moderado  
+- 0.60–0.74 → Bueno
+- ≥ 0.75 → Excelente
+
+Y el factor de contracción lambda (Raudenbush & Bryk, 2002) explica cuánto peso asigna el modelo EBLUP a la información individual frente a la tendencia grupal:
+
+```r
+# λ ≈ ICC / (ICC + (1 − ICC) / n̄ᵢ)
+lambda <- icc / (icc + (1 - icc) / n_mean)
+```
+
+## Sistema de color semántico
+
+Toda la app sigue un sistema de color consistente: azul para información teórica, verde para supuestos cumplidos, ámbar para advertencias, rojo para violaciones o errores. Este sistema aparece documentado en una leyenda visible justo donde se necesita.
+
+## Lección principal
+
+El beneficio más duradero de una app de este tipo no es la velocidad —aunque un análisis que tomaría horas se completa en minutos— sino la **comprensión**. La app no devuelve números: acompaña cada resultado con la decisión que ese resultado implica y la referencia bibliográfica que la respalda.

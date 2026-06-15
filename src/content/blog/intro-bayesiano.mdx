@@ -1,0 +1,60 @@
+---
+title: "Por qué el análisis bayesiano cambió mi forma de hacer estadística"
+titleEn: "Why Bayesian analysis changed the way I do statistics"
+date: "2026-03-15"
+tags: ["Bayesiano", "R", "Stan", "Filosofía Estadística"]
+excerpt: "El análisis bayesiano es otra manera de abordar la incertidumbre, a partir de métodos que debidamente ejecutados pueden incluir información experimental. Hoy se aplica en medicina, clima, IA, deportes y más."
+excerptEn: "Bayesian analysis offers another approach to uncertainty: one based on methods that, when carried out correctly, can include experimental information. Its reach today spans medicine, climate, AI, sports, and more."
+readingTime: 18
+---
+
+## Cambio de perspectiva
+
+Inicié haciendo estadística como muchos aprendimos: con hipótesis nulas, p‑valores e intervalos de confianza. Era un oficio limpio, predecible. Hasta que un día me enfrenté a un problema que no encajaba.
+
+Estudiaba datos longitudinales de una investigación educativa. Treinta sujetos, tres mediciones por persona, dos grupos comparados. Quería saber si existía una diferencia real entre ellos, pero también *cuánto* podía creer en esa diferencia. Y, sobre todo, quería incorporar lo que ya sabía del contexto: que en educación las mejoras suelen ser pequeñas, que hay efectos de arrastre, que algunos estudiantes parten con ventaja.
+
+El método frecuentista me devolvió un p‑valor. Nada más. Me decía si rechazar la hipótesis nula, pero no me permitía usar mi conocimiento previo. Esa sensación de vacío me llevó a buscar otra forma de pensar. Lo que encontré fue un campo que, lejos de ser un capítulo más en un libro de texto, se ha convertido en el motor silencioso de algunos de los avances más importantes de la última década.
+
+## La diferencia fundamental (con un poco de teoría)
+
+En el enfoque frecuentista, los parámetros son constantes fijas pero desconocidas. La incertidumbre está en los datos. En el enfoque bayesiano, los parámetros son variables aleatorias. La incertidumbre está en *nuestro conocimiento*, y los datos la reducen.
+
+Esta idea se resume en la regla de Bayes, formulada por el reverendo Thomas Bayes en el siglo XVIII, pero que solo hoy, con la potencia de cómputo actual, podemos usar a plenitud:
+
+$$
+P(\theta \mid \text{datos}) = \frac{P(\text{datos} \mid \theta) \cdot P(\theta)}{P(\text{datos})}
+$$
+
+Es decir; nuestra creencia inicial sobre un parámetro \(\theta\) (la probabilidad *a priori*) se actualiza con la evidencia observada para obtener una creencia final (*a posteriori*).
+
+Esto no es un tecnicismo menor. Es un cambio filosófico profundo: la estadística deja de ser una máquina de decidir "rechazar o no rechazar" y se convierte en un lenguaje para actualizar creencias de manera coherente.
+
+## Aplicaciones reales: la estadística bayesiana hoy
+
+Esa honestidad sobre la incertidumbre más que una ventaja teórica, se está convirtiendo en la columna vertebral de decisiones que nos afectan a todos. Estos son solo algunos ejemplos de lo que el análisis bayesiano hace posible hoy.
+
+### Medicina y ensayos clínicos más rápidos y seguros
+
+La Administración de Alimentos y Medicamentos de los Estados Unidos (FDA) ha emitido una guía oficial para el uso de métodos bayesianos en ensayos clínicos de fármacos y productos biológicos. El comisionado de la FDA lo expresó con claridad: las metodologías bayesianas ayudan a abordar dos de los mayores problemas del desarrollo de fármacos: los altos costos y los largos plazos. Además, son especialmente valiosos para desarrollar tratamientos para enfermedades raras o pediátricas, donde los pacientes son pocos y los ensayos tradicionales son casi imposibles.
+
+### Modelos climáticos para entender (y anticipar) el futuro del planeta
+
+Los modelos climáticos son herramientas cruciales para estudiar el impacto de las emisiones, pero requieren un enorme poder de cómputo. En 2026, investigadores de la Universidad de Oxford publicaron un estudio en el que proponen un enfoque de diseño experimental bayesiano para calibrar estos modelos de manera más eficiente, dirigiendo los recursos computacionales allí donde más información se pueda obtener de las observaciones. Por su parte, el promediado de modelos bayesiano (BMA) se aplica a conjuntos de múltiples modelos para refinar las proyecciones de temperatura y reducir el margen de error de las predicciones del IPCC.
+
+### Inteligencia artificial que sabe lo que no sabe
+
+Los modelos de Machine Learning convencionales suelen ser "cajas negras" que dan una predicción sin decir cuánto confiar en ella. El aprendizaje automático bayesiano cambia esto al incorporar la cuantificación de la incertidumbre. Un avance reciente es SmallML, un marco de aprendizaje por transferencia bayesiano que logra una precisión de nivel empresarial con conjuntos de datos de tan solo 50 a 200 observaciones, democratizando el acceso a la analítica predictiva sofisticada para pequeñas y medianas empresas.
+
+### Predicciones deportivas con modelos dinámicos
+
+En 2025, un estudio publicado en el *Journal of the Royal Statistical Society* formuló un modelo de espacio de estados bayesiano para predecir los resultados de la Premier League inglesa. El modelo estima en cada jornada la fuerza ofensiva y defensiva de cada equipo, actualizando sus predicciones a medida que avanza la temporada. Por otro lado, la Universidad de Almería estudió el uso de clasificadores bayesianos para predecir el número de faltas o la probabilidad de empate en el fútbol, el resultado más difícil de predecir.
+
+### Marketing y negocios: la era de las decisiones bajo incertidumbre
+
+Las empresas con infraestructura de pruebas A/B madura ejecutan miles de experimentos aleatorizados al año. El enfoque bayesiano es superior cuando las decisiones deben integrar incertidumbre, adaptarse a los datos entrantes o evaluar compensaciones complejas. Ya no se trata solo de saber si una versión nueva es "estadísticamente significativa" (el famoso p-valor), sino de poder afirmar: "hay un 85% de probabilidad de que esta variante aumente las ventas entre un 3% y un 5%". Los *priors* permiten a los expertos de negocio incorporar su conocimiento, y los intervalos de credibilidad resultantes son mucho más intuitivos para la toma de decisiones.
+
+### Epidemiología: entender y controlar brotes
+
+En el ámbito de la salud pública, los modelos bayesianos son indispensables para entender la propagación de enfermedades. Un estudio publicado en 2025 (en *Infectious Disease Modelling*) presentó un marco de modelización bayesiana para cuantificar el papel de los eventos de **superpropagación** en epidemias, esos casos en los que una sola persona infecta a un número desproporcionado de individuos. Este marco se aplicó a datos del brote de SARS en 2003 y de la pandemia de COVID-19, y el paquete de R resultante está disponible para que las autoridades sanitarias puedan predecir y controlar futuros brotes.
+

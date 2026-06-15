@@ -1,0 +1,70 @@
+---
+title: "SpinLoyalty: cuando la estadística bayesiana se convierte en inteligencia jurídica"
+titleEn: "SpinLoyalty: when Bayesian statistics becomes legal intelligence"
+date: "2024-12-05"
+tags: ["LegalTech", "Bayesiano", "NLP", "Marcas", "Colombia"]
+excerpt: "¿Puede un modelo estadístico predecir si la SIC aplicará el artículo 137 de la Decisión 486? En SpinLoyalty la respuesta es sí. Te cuento la arquitectura de una plataforma que une jurimetría, NLP y modelos bayesianos jerárquicos para transformar la incertidumbre jurídica en ventaja estratégica."
+excerptEn: "Can a statistical model predict whether the SIC will apply Article 137 of Decision 486? In SpinLoyalty the answer is yes. Here's the architecture of a platform that unites jurimetrics, NLP and hierarchical Bayesian models to transform legal uncertainty into strategic advantage."
+readingTime: 9
+---
+
+## El problema: incertidumbre jurídica cuantificable
+
+La competencia desleal en el registro de marcas (Art. 137, Decisión 486 de la CAN) es una de las áreas más difusas del derecho de propiedad industrial colombiano. Los abogados dependen de su experiencia acumulada para evaluar si una solicitud de registro aprovecha indebidamente la reputación ajena.
+
+Pero esa experiencia es incompleta, subjetiva y no escalable.
+
+**SpinLoyalty** parte de una premisa diferente: las resoluciones de la SIC contienen patrones reconocibles que un modelo estadístico puede aprender.
+
+## Arquitectura: tres capas que se alimentan
+
+### Capa 1: Base de resoluciones
+
+Todas las resoluciones de la SIC relacionadas con el Art. 137 forman el corpus de entrenamiento. Cada resolución se etiqueta con el resultado (aplicó o no aplicó el artículo) y se extraen variables estructuradas: clase de Niza, tipo de signo, similitud fonética, similitud visual, notoriedad de la marca opuesta, examinador, año.
+
+### Capa 2: NLP para variables latentes
+
+Los textos de las resoluciones contienen información que las variables estructuradas no capturan. Un pipeline de NLP extrae:
+
+- **Similitud semántica** entre los signos en conflicto (embeddings)
+- **Tono argumentativo** del examinador
+- **Presencia de términos clave** asociados a decisiones favorables/desfavorables
+
+### Capa 3: Modelo bayesiano jerárquico
+
+El modelo core es una regresión logística bayesiana jerárquica. Jerárquica porque aprende que hay diferencias sistemáticas entre examinadores, entre clases de Niza y entre períodos temporales:
+
+```python
+import pymc as pm
+
+with pm.Model() as spinloyalty_model:
+    # Prior sobre examinadores (efectos aleatorios)
+    examiner_effect = pm.Normal("examiner", mu=0, sigma=1, shape=n_examiners)
+    
+    # Efectos fijos: variables del caso
+    beta = pm.Normal("beta", mu=0, sigma=2, shape=n_features)
+    
+    # Predictor lineal
+    logit_p = pm.math.dot(X, beta) + examiner_effect[examiner_idx]
+    
+    # Likelihood
+    y_obs = pm.Bernoulli("y_obs", logit_p=logit_p, observed=y)
+```
+
+El resultado no es un número puntual sino una **distribución posterior**: la probabilidad de que la SIC aplique el Art. 137, con su intervalo de credibilidad del 95%.
+
+## El simulador what-if
+
+La funcionalidad más valiosa para los abogados: modificar elementos del signo (color, forma, nombre, clase) y ver en tiempo real cómo cambia la distribución posterior.
+
+¿Cambiar el nombre reduce el riesgo de 73% a 41%? El simulador lo muestra en segundos, con la incertidumbre cuantificada.
+
+## Actualización continua
+
+Cada nueva resolución de la SIC alimenta el modelo. El sistema usa actualización bayesiana secuencial: la posterior de hoy es el prior de mañana. El modelo aprende continuamente sin olvidar lo que ya sabe.
+
+## Reflexión final
+
+SpinLoyalty no reemplaza al abogado. Reduce su incertidumbre. Y la incertidumbre reducida vale dinero: en tiempo de investigación ahorrado, en estrategias mejor fundamentadas, en argumentos respaldados por evidencia estadística que un juez puede evaluar.
+
+La jurimetría no es el futuro del derecho colombiano. Es su presente inevitable.

@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Me",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "courses": "Courses",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Esneider Ríos",
+    "title": "Statistician",
+    "subtitle": "I blend statistical analysis with software development to create tools that extract real value from complexity.",
+    "cta_portfolio": "View Portfolio",
+    "cta_contact": "Contact Me"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "With more than ten years of hands-on experience running my own businesses across commercial, administrative, and financial domains, I offer a well-rounded perspective that blends quantitative analysis with real-world business know-how. I specialize in Bayesian analysis, mixed linear models, machine learning, and time series. I build production-ready Shiny and web apps (Next.js). I'm also a LegalTech expert, focusing on jurimetrics and predictive legal intelligence systems.",
+    "skills_title": "Areas of Expertise"
+  },
+  "aboutPage": {
+    "title": "About Me",
+    "role": "Statistician · Full Stack Developer · LegalTech Expert",
+    "bio1": "With more than a decade of hands-on experience leading my own businesses in commercial, administrative, and financial areas, I bring a holistic perspective that blends quantitative analysis with practical business understanding.",
+    "bio2": "I specialize in Bayesian analysis, mixed linear models, machine learning, and time series. I build production-ready Shiny and web applications (Next.js). LegalTech expert with a focus on jurimetrics and predictive legal intelligence systems.",
+    "values_title": "Values & Character",
+    "skills_title": "Technical Toolkit",
+    "education_title": "Academic Background",
+    "languages_title": "Languages",
+    "complementary_title": "Continuous Learning",
+    "edu_unal_name": "Universidad Nacional de Colombia",
+    "edu_unal_degree": "B.Sc. in Statistics — Medellín Campus",
+    "edu_unal_period": "In progress · final semesters",
+    "edu_unal_desc": "Statistical modeling, data processing and interpretation, trend and behavior analysis, and insights for decision-making, alerts, and projections in business and process control environments.",
+    "edu_academlo_name": "Academlo",
+    "edu_academlo_degree": "Full Stack Web Development",
+    "edu_academlo_period": "2023 — 2024",
+    "edu_academlo_desc": "End-to-end web application design and development: back-end with Node.js, Express, and NestJS; front-end with HTML, CSS, Tailwind, ReactJS, and Next.js.",
+    "lang_spanish": "Spanish",
+    "lang_spanish_level": "Native",
+    "lang_english": "English",
+    "lang_english_level": "Upper-Intermediate · B2",
+    "download_cv": "Download CV",
+    "teaching_title": "Teaching & Courses Created",
+    "teaching_p1": "Beyond my data analysis projects, I've designed several interactive courses in webapp format, available in the Portfolio section.",
+    "teaching_p2": "I've given private lessons to students from other fields (health, law, engineering), and to organize that content and share it easily online, I turn it into interactive webapp-style courses.",
+    "teaching_link": "View courses in the Portfolio"
+  },
+  "featured": {
+    "title": "Featured Projects",
+    "subtitle": "Applications deployed in production",
+    "view_all": "View full portfolio",
+    "view_app": "Open app",
+    "view_code": "View code"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Applications and projects in production",
+    "filter_all": "All",
+    "filter_shiny": "Shiny Apps",
+    "filter_web": "Web Apps",
+    "filter_ml": "ML / AI",
+    "view_app": "Open app",
+    "no_results": "No projects in this category"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articles on statistics, machine learning and LegalTech",
+    "read_more": "Read more",
+    "min_read": "min read",
+    "no_posts": "Coming soon..."
+  },
+  "courses": {
+    "title": "Courses",
+    "subtitle": "Educational material on statistics, LegalTech and data science",
+    "modules": "modules",
+    "start_course": "Go to course",
+    "view_resources": "View resources",
+    "level_basic": "Basic",
+    "level_intermediate": "Intermediate",
+    "level_advanced": "Advanced"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have a project in mind? Let's talk.",
+    "name": "Name",
+    "email": "Email address",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Error sending. Please try again.",
+    "or_reach": "Or find me on"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "built_with": "Built with Next.js"
+  }
+}

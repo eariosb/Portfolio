@@ -1,0 +1,75 @@
+---
+title: "Messias: predicción bayesiana de fútbol con tres modelos que se hablan entre sí"
+titleEn: "Messias: Bayesian football prediction with three models that talk to each other"
+date: "2025-01-20"
+tags: ["Bayesiano", "Stan", "brms", "Fútbol", "footBayes"]
+excerpt: "La clave de Messias no es usar un único modelo de predicción, sino combinar tres modelos bayesianos especializados: Doble Poisson para goles, Bradley-Terry-Davidson para resultados, y Binomial Negativa Jerárquica para córneres. Te cuento la arquitectura y las decisiones estadísticas."
+excerptEn: "The key to Messias is not using a single prediction model, but combining three specialized Bayesian models: Double Poisson for goals, Bradley-Terry-Davidson for results, and Hierarchical Negative Binomial for corners. Here's the architecture and statistical decisions."
+readingTime: 12
+---
+
+## Por qué tres modelos y no uno
+
+Cuando empecé a diseñar Messias, la tentación era clara: un solo modelo grande que predijera todo. La realidad estadística es más compleja.
+
+Los goles, los resultados 1X2 y los córneres tienen naturalezas probabilísticas diferentes. Tratarlos con el mismo modelo implica hacer concesiones que degradan la precisión en cada uno.
+
+La solución: **tres modelos especializados** que comparten información donde tiene sentido.
+
+## Modelo 1: Doble Poisson Bayesiano para goles
+
+El modelo principal usa la distribución Doble Poisson, estándar en la literatura académica desde Dixon y Coles (1997), implementada con `footBayes::stan_foot`.
+
+Lo que lo hace bayesiano —y superior— es que las fuerzas de ataque y defensa de los equipos son **variables latentes que se actualizan partido a partido**. Un equipo en racha lo detecta automáticamente.
+
+```r
+library(footBayes)
+model_goals <- stan_foot(
+  data = matches_data,
+  model = "double_pois",
+  dynamic_type = "seasonal"
+)
+```
+
+El diagnóstico clave: **R-hat < 1.01** garantiza convergencia de las cadenas MCMC. **ESS > 400** asegura precisión en la estimación de parámetros.
+
+## Modelo 2: Bradley-Terry-Davidson para resultados 1X2
+
+Este modelo resuelve un problema que los modelos de goles no manejan bien: **la probabilidad de empate**.
+
+El modelo Bradley-Terry compara equipos por pares. La extensión Davidson añade un parámetro específico para empates, capturando que no son simplemente "ni gana ni pierde" —son eventos con su propia dinámica.
+
+```r
+model_result <- btd_foot(
+  data = matches_data,
+  predict = upcoming_matches
+)
+```
+
+## Modelo 3: Binomial Negativa Jerárquica para córneres
+
+Los córneres son más frecuentes que los goles y tienen **sobredispersión** — su varianza es mayor que la media, lo que viola el supuesto de la Poisson estándar.
+
+La Binomial Negativa captura esta sobredispersión. El modelo es jerárquico (implementado con `brms`) porque entiende que hay diferencias sistemáticas entre ligas y entre equipos:
+
+```r
+library(brms)
+model_corners <- brm(
+  corners ~ (1 | league) + (1 | team_home) + (1 | team_away),
+  family = negbinomial(),
+  data = corners_data,
+  chains = 4, iter = 2000
+)
+```
+
+## ETL automático semanal
+
+Los tres modelos se alimentan de datos actualizados semanalmente desde FBref (resultados + xG), Understat (datos de calidad de juego) y Fotmob (tiempo real).
+
+El pipeline ETL extrae, normaliza, cruza y carga en PostgreSQL cada lunes. Los modelos se reentrenan en background —computacionalmente pesado, pero invisible para el usuario.
+
+## La métrica de transparencia: calibración
+
+La prueba de fuego de cualquier modelo predictivo es su **calibración**: cuando el modelo dice 70%, ¿ocurre el 70% de las veces?
+
+El gráfico de calibración de Messias compara probabilidades predichas con frecuencias observadas. Un modelo perfectamente calibrado muestra una diagonal perfecta. Esa transparencia es lo que diferencia un sistema estadístico serio de un generador de apariencias.
