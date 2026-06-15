@@ -301,7 +301,7 @@ export const courses: Course[] = [
     duration: "20h",
     image: "/images/courses/modelos-mixtos.svg",
     tags: ["Modelos Mixtos", "LMM", "GLMM", "Longitudinal", "R", "WebR"],
-    url: "https://intro-modelos-mixtos.vercel.app/",
+    url: "https://intro-modelos-mixtos-unal.vercel.app/",
     modules: [
       {
         id: "m1",
