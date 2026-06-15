@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import Navbar from "@/components/Navbar";
 import ConditionalFooter from "@/components/ConditionalFooter";
-// @ts-ignore: side-effect import of CSS without type declarations
+// @ts-expect-error: side-effect import of CSS without type declarations
 import 'katex/dist/katex.min.css';
 
 export function generateStaticParams() {

@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import { ExternalLink, ArrowUpRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
 import { projects, type ProjectCategory } from "@/data/projects";
 
 const CATS = {

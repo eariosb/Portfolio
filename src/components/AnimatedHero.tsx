@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { motion, useAnimation, useInView } from "framer-motion";
-import { ArrowRight, BarChart2, Brain, Code2, Scale, Database, Globe, TrendingUp, Layers, ChevronDown } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight, BarChart2, Brain, Code2, Scale, Database, Globe, TrendingUp, Layers } from "lucide-react";
 import { GaussianArt, BayesFormula, FloatingSymbols, SoftClock } from "@/components/art/GaussianArt";
 import { InlineMath } from 'react-katex';
 
@@ -76,7 +76,7 @@ function WhatsAppFAB() {
 }
 
 // Componente principal
-export default function AnimatedHero({ locale, labels, portfolioPath, contactPath }: HeroProps) {
+export default function AnimatedHero({ labels, portfolioPath, contactPath }: HeroProps) {
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "0px 0px -200px 0px" });
