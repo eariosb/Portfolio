@@ -1,70 +1,65 @@
 ---
-title: "SpinLoyalty: cuando la estadística bayesiana se convierte en inteligencia jurídica"
-titleEn: "SpinLoyalty: when Bayesian statistics becomes legal intelligence"
+title: "SpinLoyalty: medición objetiva del riesgo jurídico mediante estadística bayesiana"
+titleEn: "SpinLoyalty: objective measurement of legal risk through Bayesian statistics"
 date: "2024-12-05"
 tags: ["LegalTech", "Bayesiano", "NLP", "Marcas", "Colombia"]
-excerpt: "¿Puede un modelo estadístico predecir si la SIC aplicará el artículo 137 de la Decisión 486? En SpinLoyalty la respuesta es sí. Te cuento la arquitectura de una plataforma que une jurimetría, NLP y modelos bayesianos jerárquicos para transformar la incertidumbre jurídica en ventaja estratégica."
-excerptEn: "Can a statistical model predict whether the SIC will apply Article 137 of Decision 486? In SpinLoyalty the answer is yes. Here's the architecture of a platform that unites jurimetrics, NLP and hierarchical Bayesian models to transform legal uncertainty into strategic advantage."
+excerpt: "La competencia desleal en el registro de marcas suele evaluarse con criterios subjetivos. SpinLoyalty propone un enfoque estadístico que convierte la apreciación en medida, calibra las discrepancias entre examinadores y estandariza la noción de diferenciación; el resultado es una probabilidad cuantificable y actualizable."
+excerptEn: "Unfair competition in trademark registration is often assessed using subjective criteria. SpinLoyalty proposes a statistical approach that turns appreciation into measurement, calibrates discrepancies between examiners, and standardizes the notion of differentiation; the result is a quantifiable and updatable probability."
 readingTime: 9
 ---
 
-## El problema: incertidumbre jurídica cuantificable
+## La incertidumbre jurídica como objeto de medición
 
-La competencia desleal en el registro de marcas (Art. 137, Decisión 486 de la CAN) es una de las áreas más difusas del derecho de propiedad industrial colombiano. Los abogados dependen de su experiencia acumulada para evaluar si una solicitud de registro aprovecha indebidamente la reputación ajena.
+La aplicación del artículo 137 de la Decisión 486 de la CAN, que sanciona el registro de signos que aprovechen indebidamente la reputación ajena, depende en la práctica de la apreciación subjetiva del examinador. Dos especialistas pueden evaluar el mismo caso y llegar a conclusiones opuestas; esa variabilidad es inherente al sistema, pero no por ello debe permanecer incontrolada.
 
-Pero esa experiencia es incompleta, subjetiva y no escalable.
+La estadística ofrece una ruta alternativa: convertir la apreciación en **medida**. En lugar de preguntarse si un signo es o no confundible, SpinLoyalty cuantifica la probabilidad de que la Superintendencia de Industria y Comercio (SIC) aplique el artículo, basándose en patrones históricos, en la semántica de los textos y en la calibración objetiva de las diferencias entre examinadores.
 
-**SpinLoyalty** parte de una premisa diferente: las resoluciones de la SIC contienen patrones reconocibles que un modelo estadístico puede aprender.
+---
 
-## Arquitectura: tres capas que se alimentan
+## Juicios basados en medidas, no en impresiones
 
-### Capa 1: Base de resoluciones
+El enfoque tradicional se apoya en la experiencia acumulada; el enfoque estadístico se apoya en **datos etiquetados y en distribuciones de probabilidad**. Cada resolución de la SIC contiene una decisión binaria, aplica o no aplica el artículo 137, y un conjunto de características observables: clase de Niza, tipo de signo, similitud fonética, similitud gráfica, grado de notoriedad de la marca opuesta, examinador y año de emisión.
 
-Todas las resoluciones de la SIC relacionadas con el Art. 137 forman el corpus de entrenamiento. Cada resolución se etiqueta con el resultado (aplicó o no aplicó el artículo) y se extraen variables estructuradas: clase de Niza, tipo de signo, similitud fonética, similitud visual, notoriedad de la marca opuesta, examinador, año.
+El modelo transforma esas características en un predictor lineal y, mediante una regresión logística bayesiana, produce una **distribución posterior** sobre la probabilidad de éxito. Esa distribución no es un número aislado; es un juicio con respaldo empírico. Decir que la probabilidad de que la SIC aplique el artículo es del 73 % es una afirmación muy distinta a decir que «es probable que lo aplique». La primera es una medida; la segunda, una intuición.
 
-### Capa 2: NLP para variables latentes
+---
 
-Los textos de las resoluciones contienen información que las variables estructuradas no capturan. Un pipeline de NLP extrae:
+## Calibración objetiva de discrepancias entre examinadores
 
-- **Similitud semántica** entre los signos en conflicto (embeddings)
-- **Tono argumentativo** del examinador
-- **Presencia de términos clave** asociados a decisiones favorables/desfavorables
+Uno de los problemas estructurales del sistema es la heterogeneidad de criterios. Un examinador puede ser sistemáticamente más riguroso que otro; esa diferencia introduce ruido en cualquier evaluación basada únicamente en precedentes.
 
-### Capa 3: Modelo bayesiano jerárquico
+El modelo jerárquico resuelve este problema mediante **contracción parcial (shrinkage)**. Cada examinador tiene un efecto aleatorio que se estima a partir de sus decisiones pasadas; sin embargo, ese efecto no se toma al pie de la letra, sino que se encoge hacia la media global. El grado de contracción depende de la cantidad de decisiones que haya emitido el examinador y de la variabilidad general del sistema.
 
-El modelo core es una regresión logística bayesiana jerárquica. Jerárquica porque aprende que hay diferencias sistemáticas entre examinadores, entre clases de Niza y entre períodos temporales:
+Este mecanismo calibra las discrepancias de manera objetiva. Un examinador con pocas resoluciones se aproxima al comportamiento promedio; un examinador con un historial extenso y consistente puede desviarse más de la media, pero siempre dentro de un intervalo de credibilidad que cuantifica la incertidumbre de esa estimación. Así, la evaluación de un caso no depende de la suerte de topar con un examinador laxo o severo; depende de la evidencia acumulada y de la calibración estadística que la pondera.
+
+---
+
+## Distinción estandarizada: medir la diferenciación entre signos
+
+El concepto de «diferenciación» entre signos es central en el derecho marcario, pero suele operar como una noción difusa. SpinLoyalty la convierte en una variable cuantificable mediante dos mecanismos complementarios.
+
+El primero es el procesamiento de lenguaje natural (NLP). Los textos de las resoluciones se proyectan en un espacio vectorial de alta dimensión; allí, la **distancia semántica** entre los signos en conflicto se mide con métricas estándar, como la similitud del coseno o la distancia euclidiana. Cuanto más cercanos son los vectores en ese espacio, menor es la diferenciación objetiva y mayor el riesgo de que el examinador aprecie un aprovechamiento indebido. Cuanto más separados, mayor la distinción y menor la probabilidad de aplicación del artículo.
+
+El segundo es la estandarización de las variables predictoras. Las similitudes fonéticas, gráficas y conceptuales se codifican en escalas continuas y comparables; esa estandarización permite que el modelo aprenda umbrales de decisión que no dependen de la calificación subjetiva de un analista humano. La diferenciación deja de ser una impresión y se convierte en una **distancia medida** que, junto con las demás variables, alimenta la predicción.
+
+---
+
+## Modelo bayesiano jerárquico: estructura y actualización
+
+El núcleo de SpinLoyalty es un modelo de regresión logística bayesiana con efectos jerárquicos. Su especificación responde a la estructura del problema:
 
 ```python
 import pymc as pm
 
 with pm.Model() as spinloyalty_model:
-    # Prior sobre examinadores (efectos aleatorios)
+    # Efecto aleatorio por examinador: captura la heterogeneidad y la calibra
     examiner_effect = pm.Normal("examiner", mu=0, sigma=1, shape=n_examiners)
     
-    # Efectos fijos: variables del caso
+    # Efectos fijos para las variables del caso
     beta = pm.Normal("beta", mu=0, sigma=2, shape=n_features)
     
     # Predictor lineal
     logit_p = pm.math.dot(X, beta) + examiner_effect[examiner_idx]
     
-    # Likelihood
+    # Verosimilitud: decisiones observadas
     y_obs = pm.Bernoulli("y_obs", logit_p=logit_p, observed=y)
-```
-
-El resultado no es un número puntual sino una **distribución posterior**: la probabilidad de que la SIC aplique el Art. 137, con su intervalo de credibilidad del 95%.
-
-## El simulador what-if
-
-La funcionalidad más valiosa para los abogados: modificar elementos del signo (color, forma, nombre, clase) y ver en tiempo real cómo cambia la distribución posterior.
-
-¿Cambiar el nombre reduce el riesgo de 73% a 41%? El simulador lo muestra en segundos, con la incertidumbre cuantificada.
-
-## Actualización continua
-
-Cada nueva resolución de la SIC alimenta el modelo. El sistema usa actualización bayesiana secuencial: la posterior de hoy es el prior de mañana. El modelo aprende continuamente sin olvidar lo que ya sabe.
-
-## Reflexión final
-
-SpinLoyalty no reemplaza al abogado. Reduce su incertidumbre. Y la incertidumbre reducida vale dinero: en tiempo de investigación ahorrado, en estrategias mejor fundamentadas, en argumentos respaldados por evidencia estadística que un juez puede evaluar.
-
-La jurimetría no es el futuro del derecho colombiano. Es su presente inevitable.

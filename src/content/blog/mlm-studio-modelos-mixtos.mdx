@@ -1,53 +1,125 @@
 ---
-title: "MLM Studio: cómo construí una app que hace accesible el análisis longitudinal"
-titleEn: "MLM Studio: how I built an app that makes longitudinal analysis accessible"
+title: "MLM Studio: un flujo integrado, visual e interactivo para el análisis longitudinal"
+titleEn: "MLM Studio: an integrated, visual, and interactive workflow for longitudinal analysis"
 date: "2025-03-10"
 tags: ["Modelos Mixtos", "Shiny", "R", "lme4", "Longitudinal"]
-excerpt: "Muchos investigadores entienden la teoría de los modelos lineales mixtos pero encuentran una brecha al implementarlos. MLM Studio nació para cerrar esa brecha: flujo completo de análisis sin escribir una sola línea de código."
-excerptEn: "Many researchers understand the theory of linear mixed models but find a gap when implementing them. MLM Studio was born to close that gap: complete analysis workflow without writing a single line of code."
-readingTime: 10
+excerpt: "El análisis de medidas repetidas exige decisiones secuenciales: comparar medias entre grupos, elegir la estructura de efectos aleatorios y evaluar la covarianza entre intercepto y pendiente. MLM Studio organiza ese flujo con gráficos interactivos, tarjetas interpretativas y herramientas de comparación de modelos, sin escribir código."
+excerptEn: "Repeated measures analysis demands sequential decisions: comparing means across groups, selecting random effects structure, and evaluating covariance between intercept and slope. MLM Studio organizes that workflow with interactive graphics, interpretive cards, and model comparison tools, without writing code."
+readingTime: 12
 ---
 
-## El problema que quise resolver
+## El verdadero desafío del análisis longitudinal
 
-En el contexto académico de la Escuela de Estadística de la UNAL, detecté un patrón recurrente: profesionales que entienden perfectamente la teoría de los modelos lineales mixtos (MLM) pero enfrentan una brecha importante al momento de implementarlos, interpretarlos y comunicar sus resultados con rigor.
+Los datos longitudinales, mediciones repetidas sobre los mismos individuos, centros o unidades experimentales,  violan el supuesto de independencia que subyace a los modelos lineales clásicos. La solución teórica es conocida: los modelos lineales mixtos (MLM) incorporan componentes aleatorias que capturan la correlación intra-sujeto. Sin embargo, la implementación práctica plantea un problema menos discutido: **el orden de las decisiones estadísticas afecta la validez de las conclusiones**.
 
-La solución obvia era código. Pero el código tiene un costo de entrada que muchos investigadores empíricos —en ciencias de la salud, educación, psicología, ciencias del deporte— no están dispuestos o no pueden pagar.
+¿Se comparan primero las medias entre tratamientos o se especifica primero la estructura de covarianza? ¿Se incluye siempre una pendiente aleatoria o conviene evaluar su ganancia frente a la pérdida de parsimonia? ¿Cómo se interpreta la correlación entre intercepto y pendiente cuando ambos varían entre sujetos?
 
-**MLM Studio** nació para cerrar esa brecha.
+MLM Studio nació para resolver ese problema de secuencia y criterio, ofreciendo un flujo de trabajo que guía al investigador a través de cada etapa con retroalimentación visual, tarjetas interpretativas y comparaciones automáticas de modelos.
 
-## Flujo de siete etapas
+---
 
-La aplicación está organizada en siete pestañas que corresponden a siete etapas del análisis, en el orden estadísticamente correcto:
+## La orden del flujo: siete etapas para no perderse
 
-1. **Datos** — Importación, transformación wide→long, dataset demo
-2. **Descriptivos** — Estadísticos por grupo y momento, Shapiro-Wilk contextual
-3. **Distribución** — Cuatro modos de visualización, Levene Brown-Forsythe
-4. **Perfiles longitudinales** — Espagueti, trellis, boxplot, promedios, combinado
-5. **Estimaciones OLS individuales** — Interceptos y pendientes por sujeto
-6. **Modelo mixto** — lme4 + lmerTest, efectos fijos/aleatorios, ICC, EBLUPs
-7. **Comparación de modelos** — LRT, AIC, BIC, ΔAIC, ΔBIC con recomendación automática
+La aplicación organiza el análisis en siete pestañas que reflejan la secuencia lógica del modelado longitudinal:
 
-## La decisión técnica clave: interpretación automática
+- **Datos**: Importación desde archivos o base de datos; transformación de formato ancho a largo; dataset demo con datos reales simulados (Feldman, 1988) para pruebas inmediatas.
 
-Cada resultado va acompañado de su interpretación en lenguaje natural. Por ejemplo, el ICC se clasifica automáticamente según los criterios de Cicchetti (1994):
+- **Descriptivos**: Estadísticos por grupo y momento; prueba de Shapiro-Wilk contextualizada por nivel del factor; identificación de valores atípicos.
 
-- < 0.40 → Pobre
-- 0.40–0.59 → Moderado  
-- 0.60–0.74 → Bueno
-- ≥ 0.75 → Excelente
+- **Distribución**: Visualización de la distribución en cuatro modos; prueba de Levene-Brown-Forsythe para evaluar homogeneidad de varianzas entre grupos, un supuesto que suele olvidarse en diseños longitudinales.
 
-Y el factor de contracción lambda (Raudenbush & Bryk, 2002) explica cuánto peso asigna el modelo EBLUP a la información individual frente a la tendencia grupal:
+- **Perfiles longitudinales**: Gráficos de espagueti, trellis por grupo, boxplots por tiempo, promedios marginales y visualizaciones combinadas. Esta pestaña responde a la primera pregunta sustantiva: ¿los perfiles de los grupos son visualmente paralelos o presentan cruces?
 
-```r
-# λ ≈ ICC / (ICC + (1 − ICC) / n̄ᵢ)
-lambda <- icc / (icc + (1 - icc) / n_mean)
-```
+- **Estimaciones OLS individuales**: Regresiones por sujeto o unidad experimental para obtener interceptos y pendientes preliminares. Esta etapa permite detectar patrones de heterogeneidad antes de formalizar el modelo mixto.
 
-## Sistema de color semántico
+- **Modelo mixto**: Ajuste con `lme4` y `lmerTest`; estimación de efectos fijos, componentes de varianza, coeficiente de correlación intraclase (ICC), y valores predichos empíricos de Bayes (EBLUPs) con sus intervalos de credibilidad.
 
-Toda la app sigue un sistema de color consistente: azul para información teórica, verde para supuestos cumplidos, ámbar para advertencias, rojo para violaciones o errores. Este sistema aparece documentado en una leyenda visible justo donde se necesita.
+- **Comparación de modelos**: Pruebas de razón de verosimilitud, AIC, BIC, ΔAIC y ΔBIC con una recomendación automática que indica qué modelo equilibra mejor ajuste y complejidad.
 
-## Lección principal
+---
 
-El beneficio más duradero de una app de este tipo no es la velocidad —aunque un análisis que tomaría horas se completa en minutos— sino la **comprensión**. La app no devuelve números: acompaña cada resultado con la decisión que ese resultado implica y la referencia bibliográfica que la respalda.
+## Comparación de medias entre grupos y tratamientos: el núcleo de la inferencia
+
+El primer objetivo sustantivo en la mayoría de los estudios longitudinales es comparar la evolución entre grupos, centros o tratamientos. En el lenguaje de los MLM, esto se traduce en contrastar los **efectos fijos** —específicamente, el término de interacción entre tiempo y grupo.
+
+MLM Studio automatiza esta comparación mediante:
+
+- **Matrices de contraste predefinidas**: el usuario selecciona el factor de agrupación (tratamiento, centro, cohorte) y la aplicación genera automáticamente los contrastes ortogonales o las comparaciones por pares con ajuste de Tukey o Bonferroni.
+
+- **Pruebas de efectos marginales**: se calculan los estadísticos F de Satterthwaite o de Kenward-Roger, con sus respectivos grados de libertad y valores p.
+
+- **Visualización interactiva de las diferencias**: el gráfico de perfiles incluye intervalos de confianza para las medias estimadas; al pasar el cursor (tooltip) sobre cada punto, se despliega el tamaño del efecto y el intervalo de confianza de la diferencia entre grupos en ese momento específico.
+
+Esta integración evita el error común de realizar comparaciones por pares en cada tiempo de forma independiente, sin ajustar por la estructura de covarianza que subyace a las mediciones repetidas.
+
+---
+
+## Componentes aleatorias: intercepto, pendiente y su relación
+
+La elección de la estructura aleatoria es la decisión más delicada y, a menudo, la menos fundamentada. MLM Studio aborda este problema distinguiendo tres decisiones secuenciales:
+
+### Intercepto aleatorio
+
+Es la inclusión mínima para datos longitudinales: cada sujeto o centro parte de un nivel basal diferente. El modelo de intercepto aleatorio supone que todas las trayectorias son paralelas (pendiente fija). Esto es apropiado cuando la heterogeneidad se limita al punto de partida.
+
+### Pendiente aleatoria
+
+Cuando se incluye la pendiente aleatoria, el modelo permite que la tasa de cambio varíe entre sujetos. La ganancia de incluirla es sustancial: relaja el supuesto de trayectorias paralelas y captura la evolución diferencial. El costo es doble: se consumen grados de libertad y puede generar problemas de convergencia o matrices de covarianza no positivas definidas (Heywood cases).
+
+MLM Studio cuantifica esta ganancia con:
+
+- **Prueba de razón de verosimilitud (LRT)**: compara el modelo con pendiente aleatoria contra el modelo sin ella, con una advertencia sobre el problema de prueba en el límite (boundary testing).
+- **ΔAIC y ΔBIC**: reporta la mejora en criterios de información.
+- **Recomendación automática**: si la pendiente aleatoria no mejora significativamente el ajuste o introduce inestabilidad, la aplicación sugiere retirarla y justifica la decisión en lenguaje natural.
+
+### Relación entre intercepto y pendiente aleatoria
+
+La covarianza entre el intercepto y la pendiente aleatoria es una de las métricas más informativas del modelo. Responde a preguntas como: ¿los sujetos que parten de niveles bajos tienen tasas de cambio más rápidas (compensación), o los que parten alto también crecen más (reforzamiento)?
+
+La aplicación visualiza esta relación mediante:
+
+- Un **gráfico de dispersión de los EBLUPs** (intercepto vs. pendiente) con una elipse de confianza al 95 %, acompañado del coeficiente de correlación estimado.
+
+- Una **tarjeta interpretativa** que se actualiza dinámicamente: por ejemplo, "La correlación entre intercepto y pendiente es positiva (r = 0.72), lo que indica que los centros con mayor nivel inicial tienden a mostrar un crecimiento más acelerado. Esta relación explica el 52 % de la varianza entre centros".
+
+---
+
+## La decisión de incluir o excluir la pendiente aleatoria: criterios visuales y numéricos
+
+MLM Studio no solo entrega números; permite al investigador tomar una decisión informada mediante dos recursos complementarios:
+
+1. **Gráfico de perfiles individuales superpuestos con el modelo ajustado**: al activar una casilla, se superponen las trayectorias predichas por el modelo de intercepto aleatorio y las del modelo con pendiente aleatoria. La comparación visual revela si el modelo más simple subestima sistemáticamente la variabilidad en los extremos del tiempo.
+
+2. **Tabla de comparación de modelos**: muestra lado a lado los componentes de varianza, los criterios de ajuste y la interpretación de cada estructura. Un sistema de semáforo (verde, ámbar, rojo) indica si la inclusión de la pendiente es estadísticamente justificable, dudosa o no recomendada.
+
+---
+
+## Modelación, comparación y selección automatizada
+
+La aplicación admite la especificación de hasta cinco modelos anidados (por ejemplo, intercepto aleatorio, pendiente aleatoria, pendiente aleatoria con correlación, efectos heterocedásticos por grupo). La pestaña de comparación presenta:
+
+- **LRT secuenciales** con valores p ajustados por simulación cuando se detectan problemas de boundary.
+- **Tabla de AIC/BIC** con colores que destacan el mejor modelo (verde) y los modelos competitivos (ámbar).
+- **Recomendación final**: basada en la regla de Burnham & Anderson (2002), si ΔAIC < 2, los modelos son equivalentes y se selecciona el más parsimonioso; si 2 < ΔAIC < 7, hay soporte sustancial para el modelo complejo; si ΔAIC > 10, el modelo complejo es claramente superior.
+
+---
+
+## Gráficos interactivos, tooltips y tarjetas de interpretación
+
+La experiencia del usuario se apoya en tres componentes de interacción:
+
+- **Gráficos con `plotly`**: cada visualización permite hacer zoom, desplazarse y obtener valores exactos al pasar el cursor (hover). En los gráficos de perfiles, el hover muestra el valor observado, el valor predicho y el residuo estandarizado.
+
+- **Tooltips contextuales**: cada término estadístico (ICC, EBLUP, lambda, Satterthwaite, etc.) tiene un icono de interrogación que, al hacer clic, despliega una ventana emergente con la definición, la fórmula y la referencia bibliográfica (Raudenbush & Bryk, 2002; Snijders & Bosker, 2012).
+
+- **Tarjetas de interpretación fijas al costado**: mientras se navega por los resultados, un panel lateral muestra un resumen en lenguaje natural de la conclusión principal. Por ejemplo: "El modelo de pendiente aleatoria mejora el ajuste (χ² = 12.4, p = 0.002). Esto indica que los tratamientos no solo difieren en su nivel inicial, sino que su efecto cambia sistemáticamente a lo largo del tiempo. Considere usar este modelo para sus conclusiones finales".
+
+---
+
+## Integración de todos los elementos: una única interfaz coherente
+
+La aplicación no es una colección de scripts sueltos; es un ecosistema donde cada pestaña alimenta a la siguiente. Las decisiones tomadas en la pestaña de descriptivos (por ejemplo, transformación logarítmica de la variable respuesta) se propagan automáticamente a los modelos. La selección de la estructura aleatoria en la pestaña de modelos se refleja inmediatamente en la tabla de comparación y en los gráficos de diagnósticos.
+
+Esa coherencia metodológica es el valor principal de MLM Studio: no solo acelera el análisis (lo reduce de horas a minutos), sino que impone una disciplina estadística que previene errores comunes como la especificación secuencial incorrecta o la interpretación aislada de los efectos fijos sin considerar la estructura de covarianza.
+
+El resultado final es un panel dinámico que el investigador puede recorrer, cuestionar y ajustar en tiempo real, con la certeza de que cada decisión está respaldada por la estadística y por una interfaz que traduce la teoría en acción concreta.

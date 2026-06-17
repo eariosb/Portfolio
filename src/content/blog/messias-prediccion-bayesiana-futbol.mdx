@@ -48,7 +48,7 @@ model_result <- btd_foot(
 
 ## Modelo 3: Binomial Negativa Jerárquica para córneres
 
-Los córneres son más frecuentes que los goles y tienen **sobredispersión** — su varianza es mayor que la media, lo que viola el supuesto de la Poisson estándar.
+Los córneres son más frecuentes que los goles y tienen **sobredispersión**,  su varianza es mayor que la media, lo que viola el supuesto de la Poisson estándar.
 
 La Binomial Negativa captura esta sobredispersión. El modelo es jerárquico (implementado con `brms`) porque entiende que hay diferencias sistemáticas entre ligas y entre equipos:
 
@@ -66,7 +66,7 @@ model_corners <- brm(
 
 Los tres modelos se alimentan de datos actualizados semanalmente desde FBref (resultados + xG), Understat (datos de calidad de juego) y Fotmob (tiempo real).
 
-El pipeline ETL extrae, normaliza, cruza y carga en PostgreSQL cada lunes. Los modelos se reentrenan en background —computacionalmente pesado, pero invisible para el usuario.
+El pipeline ETL extrae, normaliza, cruza y carga en PostgreSQL cada lunes. Los modelos se reentrenan en background, computacionalmente pesado, pero invisible para el usuario.
 
 ## La métrica de transparencia: calibración
 

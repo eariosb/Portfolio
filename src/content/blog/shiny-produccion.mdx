@@ -1,58 +1,100 @@
 ---
-title: "La Tienda: inteligencia de precios mayoristas con actualización bayesiana en tiempo real"
-titleEn: "La Tienda: wholesale price intelligence with real-time Bayesian updating"
+title: "La Tienda: inteligencia de precios mayoristas con actualización bayesiana y enfoque temporal"
+titleEn: "La Tienda: wholesale price intelligence with Bayesian updating and temporal focus"
 date: "2024-09-20"
 tags: ["Bayesiano", "R", "Shiny", "Precios", "STL", "Mann-Kendall"]
-excerpt: "Un comerciante minorista antioqueño necesita tomar decisiones de compra todos los días, con información imperfecta y bajo incertidumbre. La Tienda transforma datos públicos de la Central Mayorista, el DANE y el WFP en inteligencia de mercado accionable usando estadística bayesiana."
-excerptEn: "An Antioquian retail merchant needs to make buying decisions every day, with imperfect information and under uncertainty. La Tienda transforms public data from Central Mayorista, DANE and WFP into actionable market intelligence using Bayesian statistics."
+excerpt: "El comerciante minorista necesita decidir hoy cuánto comprar y a qué precio, pero la clave está en lo que ocurrirá en los próximos días. La Tienda combina actualización bayesiana, descomposición estacional y detección de tendencias para anticipar movimientos, ajustar inventarios y evitar sobrecostos por decisiones tardías."
+excerptEn: "The retail merchant needs to decide today how much to buy and at what price, but the key lies in what will happen in the coming days. La Tienda combines Bayesian updating, seasonal decomposition and trend detection to anticipate movements, adjust inventories and avoid cost overruns from late decisions."
 readingTime: 9
 ---
 
-## El problema del comerciante minorista
+## El desafío cotidiano del comerciante minorista
 
-El comerciante que compra en la Central Mayorista de Medellín enfrenta un problema de decisión clásico bajo incertidumbre: ¿compro 100 kg de tomate hoy a $2.500/kg o espero?
+El comerciante que abastece su negocio en la Central Mayorista de Medellín enfrenta una pregunta recurrente cada mañana: ¿compro 100 kilogramos de tomate hoy a $2.500 por kilo o espero al jueves?
 
-La respuesta correcta requiere saber si ese precio está por encima o por debajo de la media histórica, si hay una tendencia alcista, y qué tan incierta es la predicción para los próximos días.
+La respuesta no depende solo del precio actual. Depende de lo que ese precio implica sobre el comportamiento de los próximos días. Una caída de precio puede ser el inicio de una tendencia prolongada o simplemente un ajuste puntual que se revertirá mañana. Una subida puede anticipar una escasez estacional o ser un pico transitorio.
 
-**La Tienda** convierte esa intuición en estadística formal.
+La estadística proporciona un marco para responder esa pregunta con fundamento. No se trata de adivinar el futuro, sino de medir la incertidumbre y de reconocer los patrones temporales que subyacen a las fluctuaciones de precio.
 
-## El modelo conjugado Normal-Normal
+---
 
-El núcleo del sistema es una actualización bayesiana secuencial. Asumimos que el precio "verdadero" θ sigue una distribución normal con varianza conocida:
+## El modelo conjugado Normal-Normal: actualización en tiempo real
 
-```
-Prior: θ ~ Normal(μ₀, σ₀²)
-Likelihood: y | θ ~ Normal(θ, σ²)
-Posterior: θ | y ~ Normal(μ_n, σ_n²)
-```
+El núcleo estadístico de La Tienda es una actualización bayesiana secuencial mediante el modelo conjugado Normal-Normal. Este enfoque supone que el precio «verdadero» \( \theta \) sigue una distribución normal con varianza conocida, y que cada nueva observación actualiza esa creencia de forma directa.
 
-Donde:
-- μ_n = (μ₀/σ₀² + ȳ·n/σ²) / (1/σ₀² + n/σ²)  
-- σ_n² = 1 / (1/σ₀² + n/σ²)
+La media y la varianza posteriores se calculan como:
 
-La belleza del modelo conjugado es que la actualización ocurre en tiempo real — cada nuevo scraping actualiza la distribución posterior sin necesidad de reentrenar.
+$$
+\mu_n = \frac{\mu_0 / \sigma_0^2 + \bar{y} \cdot n / \sigma^2}{1 / \sigma_0^2 + n / \sigma^2}
+$$
 
-## Las fuentes de datos
+$$
+\sigma_n^2 = \frac{1}{1 / \sigma_0^2 + n / \sigma^2}
+$$
 
-El sistema integra cuatro fuentes públicas:
+La ventaja de este modelo conjugado es su eficiencia computacional. Cada nuevo dato que se obtiene mediante el scraping diario actualiza la distribución posterior sin necesidad de reajustar todo el modelo desde cero. El comerciante obtiene, en tiempo real, una estimación del precio actual y un intervalo de credibilidad que cuantifica la incertidumbre de esa estimación.
 
-- **Central Mayorista de Antioquia**: precios diarios de 100+ productos
-- **DANE-SIPSA**: precios mayoristas nacionales para comparación
-- **Banco de la República**: IPC base 2018 via API JSON pública
-- **WFP/HDX**: histórico desde 2010 para 20+ productos básicos
+---
 
-## Más allá del promedio: STL y Mann-Kendall
+## Fuentes de datos integradas
 
-La actualización bayesiana responde "¿dónde está el precio ahora?". Dos técnicas complementarias responden preguntas diferentes:
+El sistema aglutina cuatro fuentes públicas que, combinadas, ofrecen una visión panorámica del mercado mayorista colombiano:
 
-**Descomposición STL** separa la serie en tendencia, estacionalidad y residuo. Permite cuantificar: "en diciembre, el aceite sube en promedio un 12%". No intuición — número con incertidumbre.
+- **Central Mayorista de Antioquia**: precios diarios de más de 100 productos, con registro histórico continuo.
+- **DANE-SIPSA**: precios mayoristas a nivel nacional, que permiten comparar el comportamiento regional frente al agregado.
+- **Banco de la República**: índice de precios al consumidor (IPC) con base 2018, accesible mediante API JSON pública, para ajustar por inflación y poder adquisitivo.
+- **WFP / HDX**: series históricas desde 2010 para más de 20 productos básicos, que proporcionan contexto de largo plazo.
 
-**Prueba de Mann-Kendall** detecta tendencias monotónicas significativas. Si el aceite lleva 6 semanas subiendo sostenidamente, Mann-Kendall lo detecta antes de que el comerciante lo sienta.
+La integración de estas fuentes no es trivial; requiere limpieza, normalización y alineación temporal. Sin embargo, el resultado es una base de datos consistente que alimenta los tres componentes analíticos del sistema.
 
-## Alerta de oportunidad
+---
 
-El sistema combina todos los componentes en una señal simple: cuando el precio actual está significativamente por debajo (o encima) de la media posterior ajustada por estacionalidad, dispara una alerta.
+## El horizonte temporal: lo que ocurrirá en los próximos días
 
-El comerciante no necesita entender la estadística. Solo necesita ver: 🔵 Oportunidad de compra — el precio está 6% por debajo de su media histórica.
+Conocer el precio de hoy es útil, pero la decisión de compra mira hacia adelante. Si el tomate tiende a subir los jueves por mayor demanda de los restaurantes, comprar el miércoles es racional. Si el aceite suele bajar en febrero por el fin de la zafra, anticiparse a esa caída evita sobrecostos.
 
-La estadística trabaja en segundo plano. La decisión sigue siendo del comerciante — pero ahora fundamentada en evidencia.
+La Tienda aborda esta dimensión temporal mediante dos técnicas complementarias que, junto con la actualización bayesiana, ofrecen una visión de corto y mediano plazo.
+
+---
+
+## Descomposición STL: estacionalidad para la gestión de inventario
+
+La descomposición STL (Seasonal-Trend decomposition using Loess) separa la serie de precios en tres componentes: tendencia, estacionalidad y residuo. Esta separación permite cuantificar comportamientos que, de otro modo, permanecerían ocultos en la fluctuación diaria.
+
+- **Tendencia**: la dirección general del precio en los últimos meses. Una tendencia alcista sostenida sugiere que el comerciante debería considerar compras de mayor volumen para fijar precio antes de que siga subiendo.
+- **Estacionalidad**: los ciclos recurrentes asociados a épocas del año, cosechas, festividades o temporadas comerciales. Por ejemplo, el precio del aceite aumenta en promedio un 12 % en diciembre por el incremento de la demanda; el del aguacate baja en marzo por la entrada de la cosecha principal. Conocer estas ventanas permite programar el inventario con antelación, evitando la escasez en los picos de precio y la sobrecompra en las caídas anunciadas.
+- **Residuo**: lo que queda después de extraer tendencia y estacionalidad. Un residuo grande y persistente indica un shock inesperado —una helada, un paro de transporte— que el modelo detecta como una desviación anómala y genera una alerta especial.
+
+La estacionalidad no es una curiosidad académica; es una herramienta operativa. Saber que el precio del frijol sube sistemáticamente en la segunda semana de cada mes, o que el del plátano baja en la temporada de lluvias, permite al comerciante ajustar su calendario de compras y su espacio de bodega con criterio empírico.
+
+---
+
+## Prueba de Mann-Kendall: detección temprana de tendencias para evitar sobrecompra
+
+La estacionalidad responde a patrones conocidos; la tendencia capta cambios estructurales. La prueba no paramétrica de Mann-Kendall detecta si una serie presenta una tendencia monotónica significativa, sin requerir supuestos de normalidad ni linealidad.
+
+Su utilidad práctica es clara. Si el aceite ha subido durante seis semanas consecutivas, la prueba de Mann-Kendall lo señala mucho antes de que el comerciante lo perciba por intuición. Esa señal temprana permite ajustar la estrategia de inventario: si la tendencia es alcista y se espera que continúe, comprar hoy para evitar un precio mayor mañana. Si, por el contrario, la tendencia es bajista, la recomendación es posponer las compras grandes y evitar la sobrecompra a precios que aún están en descenso.
+
+El sistema no se limita a detectar la tendencia; estima su pendiente y la incertidumbre asociada. Esa información se traduce en una recomendación explícita sobre el volumen de compra recomendado para los próximos días.
+
+---
+
+## Integración de los componentes: una señal unificada para la decisión
+
+La actualización bayesiana proporciona la estimación del precio actual con su intervalo de credibilidad. La descomposición STL proporciona el componente estacional esperado para los próximos días. La prueba de Mann-Kendall proporciona la dirección y fuerza de la tendencia subyacente.
+
+La Tienda combina estos tres elementos en un índice de oportunidad. Cuando el precio actual está significativamente por debajo del valor esperado ajustado por tendencia y estacionalidad, el sistema emite una señal de compra favorable. Cuando está por encima, emite una señal de precaución.
+
+El comerciante no necesita interpretar los componentes por separado. La interfaz muestra una alerta simple, acompañada del horizonte temporal proyectado: «El precio del tomate está un 6 % por debajo de su media estacional. Se espera que esta condición se mantenga durante los próximos tres días. Considere aumentar la compra para cubrir la semana». Esa frase condensa la estadística, la estacionalidad y la tendencia en una acción concreta.
+
+---
+
+## Decisión de inventario y precio: evitar la sobrecompra y optimizar márgenes
+
+El objetivo final del análisis es doble: gestionar el inventario y fijar precios de venta al público con márgenes razonables.
+
+En el lado del inventario, el sistema recomienda volúmenes de compra en función del precio proyectado y de la incertidumbre. Si el precio actual es bajo y la estacionalidad indica que subirá en los próximos diez días, la recomendación es aumentar el volumen de compra ahora y reducir las compras diarias durante la subida. Si el precio actual es alto y la tendencia es bajista, la recomendación es comprar solo lo necesario para el día y esperar a que el precio se ajuste.
+
+En el lado de la fijación de precios al público, conocer el precio mayorista esperado permite al comerciante establecer márgenes que cubran el riesgo. Si la incertidumbre es alta (intervalo de credibilidad amplio), el margen debe ser mayor para absorber eventuales aumentos en el costo de reposición. Si la incertidumbre es baja, el margen puede ajustarse a la baja para ganar competitividad sin sacrificar rentabilidad.
+
+La estadística no elimina la incertidumbre del mercado; la cuantifica y la convierte en un insumo para la decisión. El comerciante sigue siendo el responsable de comprar o no comprar, pero ahora lo hace con una proyección fundamentada de lo que ocurrirá en los próximos días, con una estimación de los ciclos comerciales que se aproximan y con una recomendación concreta para evitar la sobrecompra en momentos de precio alto o la escasez en temporadas de alza anunciada. Esa es la ventaja de convertir la intuición temporal en una medida reproducible.
