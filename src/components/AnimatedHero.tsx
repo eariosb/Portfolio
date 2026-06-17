@@ -195,22 +195,23 @@ export default function AnimatedHero({ labels, portfolioPath, contactPath }: Her
               animate={mounted && isInView ? "visible" : "hidden"}
               variants={containerVariants}
             >
-              {/* Tarjeta Bayes + Gauss */}
+             
               <motion.div variants={itemVariants}
                 className="card p-3 sm:p-4 hover:shadow-xl transition-shadow duration-300 flex flex-col items-center justify-center text-center gap-2"
                 whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <BayesFormula className="scale-90 origin-center" />
-                <GaussianArt className="w-full h-10 sm:h-14" />
+                <GaussianArt className="w-full h-10 sm:h-14" /> 
+                {/* Tarjeta Bayes + Gauss 
                 <div className="flex flex-wrap justify-center gap-3">
                   <span className="mono-tag text-[#94A3B8] text-[9px] tracking-[0.2em]">
                     <InlineMath math="N(\mu, \sigma^2)" />
                   </span>
                   <span className="mono-tag text-[#94A3B8] text-[9px] tracking-[0.2em]">MCMC</span>
                   <span className="mono-tag text-[#94A3B8] text-[9px] tracking-[0.2em]">Posterior</span>
-                </div>
+                </div>*/}
               </motion.div>
 
-              {/* Stats 2×2 */}
+              {/* Stats 2×2 
               <div className="grid grid-cols-2 gap-2">
                 {stats.map((s, idx) => (
                   <motion.div
@@ -226,7 +227,7 @@ export default function AnimatedHero({ labels, portfolioPath, contactPath }: Her
                     <div className="mono-tag text-[#94A3B8] text-[8px] tracking-[0.18em]">{s.label}</div>
                   </motion.div>
                 ))}
-              </div>
+              </div>*/}
 
               {/* Skills 4×2 */}
               <div className="grid grid-cols-4 gap-2">
