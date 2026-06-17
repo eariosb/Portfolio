@@ -4,7 +4,6 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, BarChart2, Brain, Code2, Scale, Database, Globe, TrendingUp, Layers } from "lucide-react";
 import { GaussianArt, BayesFormula, FloatingSymbols, SoftClock } from "@/components/art/GaussianArt";
-import { InlineMath } from 'react-katex';
 
 interface HeroProps {
   locale: string;
