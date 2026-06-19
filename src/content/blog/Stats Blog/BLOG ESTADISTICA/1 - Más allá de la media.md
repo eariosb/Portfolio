@@ -1,9 +1,9 @@
 ---
 title: "Más allá de la media: por qué los extremos son la verdadera señal de alerta en los datos"
 titleEn: "Beyond the Mean: Why Extremes Are the Real Early Warning Signal in Data"
-date: "2026-05-19"
+date: "2026-06-17"
 tags: ["Estadística", "Análisis de datos", "Calidad", "Riesgo", "Outliers"]
-excerpt: "La estadística tradicional se centra en la media, pero en la práctica los eventos críticos; fallos, oportunidades, riesgos, ocurren en las colas. Este post explica por qué monitorizar los extremos es tan importante como conocer el promedio, y cómo hacerlo con rigor estadístico."
+excerpt: "La estadística tradicional se centra en la media, pero en la práctica los eventos críticos —fallos, oportunidades, riesgos— ocurren en las colas. Este post explica por qué monitorizar los extremos es tan importante como conocer el promedio, y cómo hacerlo con rigor estadístico."
 excerptEn: "Traditional statistics focuses on the mean, but in practice critical events — failures, opportunities, risks — happen in the tails. This post explains why monitoring extremes is as important as knowing the average, and how to do it with statistical rigor."
 readingTime: 10
 bodyEn: |

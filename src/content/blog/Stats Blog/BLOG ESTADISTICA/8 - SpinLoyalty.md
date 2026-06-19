@@ -1,7 +1,7 @@
 ---
 title: "SpinLoyalty: medición objetiva del riesgo jurídico mediante estadística bayesiana"
 titleEn: "SpinLoyalty: Objective Measurement of Legal Risk Through Bayesian Statistics"
-date: "2025-12-05"
+date: "2024-12-05"
 tags: ["LegalTech", "Bayesiano", "NLP", "Marcas", "Colombia"]
 excerpt: "La competencia desleal en el registro de marcas suele evaluarse con criterios subjetivos. SpinLoyalty propone un enfoque estadístico que convierte la apreciación en medida, calibra las discrepancias entre examinadores y estandariza la noción de diferenciación; el resultado es una probabilidad cuantificable y actualizable."
 excerptEn: "Unfair competition in trademark registration is often assessed using subjective criteria. SpinLoyalty proposes a statistical approach that turns appreciation into measurement, calibrates discrepancies between examiners, and standardizes the notion of differentiation; the result is a quantifiable and updatable probability."

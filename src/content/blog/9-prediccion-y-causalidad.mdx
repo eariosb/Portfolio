@@ -1,0 +1,102 @@
+---
+title: Cuando el modelo acierta y la decisión se equivoca
+date: 2026-06-16
+tags:
+  - estadística
+  - predicción
+  - causalidad
+readingTime: 15
+excerpt: Un modelo de machine learning puede decirte con mucha precisión quién va a morir, y al mismo tiempo mentirte sobre el efecto del medicamento. Así es la diferencia entre predecir y explicar, y cuando no se entiende, los números se vuelven peligrosos.
+titleEn: When the Model Is Right but the Decision Is Wrong
+excerptEn: A machine learning model can tell you with high accuracy which patient will die, and at the same time lie to you about the medication's effect. That's the difference between predicting and explaining, and when that distinction is blurred, statistics can become dangerous.
+bodyEn: |
+  A few days ago, while reviewing notes from a study on sepsis and vasopressors, I remembered something I learned running the cash register at a restaurant. At the end of the day, I counted the receipts and knew —with a fair amount of certainty— how much money had come in. But I had no idea why people ordered more dessert on a Thursday than on a Friday. One thing is knowing what happened or what will happen; something else entirely is understanding why it happens and what I can do to change it.
+
+  That difference, which you sense on the street, has a technical name in statistics: the distinction between **algorithmic prediction** and **causal inference**. Leo Breiman, in a 2001 article that still burns, spoke of two cultures: those who model data as if it came from an elegant formula (data modeling), and those who treat the data-generating mechanism as a black box and only care about getting it right (algorithmic modeling). Today, with the rise of artificial intelligence, that divide is more alive than ever.
+
+  To grasp it without getting stuck in theory, let me walk you through a medical test case: patients with severe sepsis, a systemic infection that inflames the body until organs shut down. Treatment includes, among other things, vasopressors like norepinephrine, which raise blood pressure when the body is shutting down. The scientific question is: does norepinephrine actually reduce mortality, or are we just giving it to the sickest patients?
+
+  ### The model that gets it right, but lies
+
+  Imagine you have a massive observational database, like MIMIC‑III, with information on 8,000 ICU patients. It holds vital signs, medications, lab results. A data engineer trains an XGBoost model on all the variables to predict 28‑day mortality. The model is good: an AUC of 0.85. In plain language, if you take two patients, one who died and one who didn’t, the model assigns higher risk to the one who died 85% of the time. Not bad.
+
+  The problem appears when you look at what the model learned. The variable “received norepinephrine” shows up with strong weight… as a predictor of **higher mortality**. If someone interpreted that result causally, they would say, “The drug kills.” But every doctor knows that’s false: the bias is called *confounding by indication*. The patients who receive norepinephrine are precisely the sickest ones, those who were going to die anyway. The model learned to identify severity, not the effect of the drug.
+
+  In statistical terms, that model operates on Level 1 of the ladder of causality proposed by Judea Pearl: pure association, P(Y|X). It can see complex correlations, but it knows nothing about interventions. It can’t answer, “What would happen if I *forced* this patient to take the medication?” — the Level 2 question, the question of action.
+
+  ### The trap of the raw number
+
+  If you fall into the temptation of running a “naive” analysis and fit a simple logistic regression to see the association between norepinephrine and mortality, the result is shocking: an odds ratio of roughly 2.5. That is, it looks like the drug multiplies the chance of dying by two and a half. That number, published without context, can do harm. And yet, the model can have an acceptable R² and a very low p‑value. All statistically “significant,” all spurious.
+
+  That’s the lesson that cost me the most: a good fit does not imply good interpretation. In business it’s the same — you can have a perfect system for knowing how much inventory you need, and still go broke because you didn’t understand the reason behind demand spikes.
+
+  ### So how do you estimate the causal effect?
+
+  To get closer to the truth without running an expensive randomized trial, epidemiologists created the “target trial emulation.” The idea is to take observational data and simulate, with statistical methods, the conditions of an experiment. You define clearly: time zero, eligibility criteria, treatment strategies, and then you adjust for every variable that could confound. In the sepsis case, they used techniques like *propensity score matching*, *inverse probability weighting*, and doubly robust estimators.
+
+  The result? The adjusted estimates get closer to what the real clinical trial says (the VASST trial, with 778 patients): norepinephrine shows no clear effect on mortality. A hazard ratio around 0.95, with a confidence interval that crosses 1. Nothing like the initial 2.5. The bias shrinks drastically, but it doesn’t disappear entirely, because there can always be unmeasured variables — the doctor’s clinical eye, the rush of the night shift — that no model captures.
+
+  ### What is each thing good for?
+
+  There’s no superior culture here. In the ER, a predictive model can save lives: if you know which patient has a sky‑high risk of dying, you monitor them more closely, prepare the ICU. That’s done with machine learning, and that’s fine. But if you want to decide whether a new drug should be included in a national clinical guideline, you need causality; you need to know if the drug *causes* improvement and not just that it’s associated with different kinds of patients.
+
+  The trap lies in confusing the objectives. Using a Random Forest to estimate the effect of a treatment is like using a thermometer to measure wind speed: it might give you a number, but it’s not the one that tells you about reality.
+
+  ### A question for your week
+
+  You, reading this, are probably not deciding about vasopressors. But every day you come across headlines that say, “People who drink coffee live longer,” or “Companies that use artificial intelligence earn more money.” Behind those statements are predictive models disguised as causal evidence. The next time you see a nice number, ask yourself: does this explain or just predict? Is it on Level 1 or Level 2 of the ladder?
+
+  The difference between counting the money and understanding why it came in is the same as the difference between predicting deaths and saving lives.
+---
+
+Hace unos días, mientras repasaba las notas de un estudio sobre sepsis y vasopresores, recordé algo que aprendí manejando la caja de un restaurante. Al final del día, contaba los recibos y sabía (con bastante certeza) cuánto dinero había entrado. Pero no tenía ni idea de por qué la gente pidió más postres un jueves que un viernes. Una cosa es saber qué pasó o qué pasará; otra muy distinta es entender por qué pasa y qué puedo hacer para cambiarlo.
+
+Esa diferencia, que en la calle se intuye, tiene un nombre técnico en estadística: la distinción entre **predicción algorítmica** e **inferencia causal**. Leo Breiman, en un artículo del 2001 que todavía quema, habló de dos culturas: los que modelan los datos como si vinieran de una fórmula elegante (data modeling), y los que tratan el mecanismo de los datos como una caja negra y solo les importa acertar (algorithmic modeling). Hoy, con el auge de la inteligencia artificial, esa división es más viva que nunca.
+
+Para entenderlo sin quedarnos en la teoría, te voy a contar el caso de un banco de pruebas médico: pacientes con sepsis grave, una infección generalizada que inflama el cuerpo hasta detener órganos. El tratamiento incluye, entre otras cosas, vasopresores como la norepinefrina, que suben la presión arterial cuando el cuerpo se está apagando. La pregunta científica es: ¿la norepinefrina realmente reduce la mortalidad, o solo la estamos usando en los más graves?
+
+---
+
+### El modelo que acierta, pero miente
+
+Imaginá que tenés una base de datos observacional enorme, como MIMIC‑III, con información de 8.000 pacientes de cuidados intensivos. Ahí están los signos vitales, los medicamentos, los resultados de laboratorio. Un ingeniero de datos entrena un XGBoost con todas las variables para predecir mortalidad a 28 días. El modelo es bueno: un AUC de 0.85. En lenguaje llano, si tomás dos pacientes, uno que murió y uno que no, el modelo le asigna mayor riesgo al que murió el 85% de las veces. Nada mal.
+
+El problema aparece cuando mirás qué aprendió el modelo. La variable «recibir norepinefrina» aparece con un peso fuerte… como predictor de **mayor mortalidad**. Si alguien interpretara ese resultado causalmente, diría: «El medicamento mata». Pero todo médico sabe que eso es falso: el sesgo se llama *confusión por indicación*. Los pacientes que reciben norepinefrina son justamente los más graves, los que ya iban a morir de todos modos. El modelo aprendió a identificar la gravedad, no el efecto del fármaco.
+
+En términos estadísticos, ese modelo opera en el Nivel 1 de la escalera de causalidad que propuso Judea Pearl: asociación pura, P(Y|X). Puede ver correlaciones complejas, pero no sabe nada de intervenciones. No puede responder «¿qué pasaría si yo *obligara* a este paciente a tomar el medicamento?», que es la pregunta del Nivel 2, la de la acción.
+
+---
+
+### La trampa del número crudo
+
+Si uno cae en la tentación de hacer un análisis «naive» y corre una regresión logística simple para ver la asociación entre norepinefrina y mortalidad, el resultado es escandaloso: un odds ratio de aproximadamente 2.5. Es decir, pareciera que el medicamento multiplica por dos y medio la chance de morir. Ese número, publicado sin contexto, puede hacer daño. Y sin embargo, el modelo puede tener un R² aceptable y un p‑valor bajísimo. Todo estadísticamente «significativo», todo espurio.
+
+Ahí está la lección que me costó más: un buen ajuste no implica buena interpretación. En un negocio es análogo, uno puede tener un sistema perfecto para saber cuánto inventario necesita, y aun así quebrar porque no entendió la razón detrás de los picos de demanda.
+
+---
+
+### Entonces, ¿cómo se estima el efecto causal?
+
+Para acercarse a la verdad sin hacer un experimento aleatorizado carísimo, los epidemiólogos crearon el «ensayo objetivo emulado» (target trial emulation). La idea es tomar los datos observacionales y simular, con métodos estadísticos, las condiciones de un experimento. Se define con claridad: momento cero, criterios de elegibilidad, estrategias de tratamiento, y luego se ajusta por todas las variables que pudieran confundir. En el caso de la sepsis, se usaron técnicas como el *propensity score matching*, el *inverse probability weighting* y estimadores doblemente robustos.
+
+¿El resultado? Los estimadores ajustados se acercan a lo que dice el ensayo clínico real (el VASST, con 778 pacientes): la norepinefrina no muestra un efecto claro sobre la mortalidad. Un hazard ratio alrededor de 0.95, con un intervalo de confianza que cruza el 1. Nada que ver con el 2.5 inicial. El sesgo se reduce drásticamente, pero no desaparece del todo, porque siempre pueden quedar variables no medidas o no medibles que ningún modelo captura.
+
+---
+
+### ¿Para qué sirve cada cosa?
+
+Aquí no hay una cultura superior. En urgencias, un modelo predictivo puede salvar vidas: si sabés qué paciente tiene altísimo riesgo de morir, lo monitorizás más de cerca, preparás la UCI. Eso se hace con machine learning, y está bien. Pero si querés decidir si un nuevo medicamento debe incluirse en la guía clínica nacional, sería más prudente el enfoque causal pues necesitás saber si el fármaco *causa* mejoría y no solo que se asocia con enfermos distintos.
+
+La trampa está en confundir los objetivos. Usar un Random Forest para estimar el efecto de un tratamiento es como usar un termómetro para medir la velocidad del viento: puede dar algún número, pero no es el que te informa de la realidad.
+
+---
+
+Vos, que leés esto, probablemente no estés decidiendo sobre vasopresores. Pero todos los días te encontrás con titulares que dicen: «Las personas que toman café viven más años», o «Las empresas que usan inteligencia artificial ganan más dinero». Detrás de esas afirmaciones hay modelos predictivos disfrazados de evidencia causal. La próxima vez que veas un número bonito, preguntate: ¿esto explica o solo predice? ¿Está en el Nivel 1 o en el Nivel 2 de la escalera?
+
+La diferencia entre contar el dinero y entender por qué entró es la misma que hay entre predecir muertes y salvar vidas.
+
+Referencias y recursos
+- https://www.youtube.com/watch?v=2n88PfEu0Xg
+- Breiman, L. (2001). Statistical modeling: The two cultures. Statistical Science, 16(3), 199–231. https://doi.org/10.1214/ss/1009213726
+- Hernán, M. A., & Robins, J. M. (2020). Causal inference: What if. Chapman & Hall/CRC.
+- Pearl, J. (2009). Causality: Models, reasoning, and inference (2nd ed.). Cambridge University Press.

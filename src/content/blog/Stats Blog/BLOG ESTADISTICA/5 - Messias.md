@@ -1,7 +1,7 @@
-﻿---
-title: "Messias: tres modelos bayesianos que se hablan entre sí"
+---
+title: "Messias: predicción bayesiana de fútbol con tres modelos que se hablan entre sí"
 titleEn: "Messias: Bayesian Football Prediction with Three Models That Talk to Each Other"
-date: "2026-02-28"
+date: "2025-01-20"
 tags: ["Bayesiano", "Stan", "brms", "Fútbol", "footBayes"]
 excerpt: "La clave de Messias no es usar un único modelo de predicción, sino combinar tres modelos bayesianos especializados: Doble Poisson para goles, Bradley-Terry-Davidson para resultados, y Binomial Negativa Jerárquica para córneres. Te cuento la arquitectura y las decisiones estadísticas."
 excerptEn: "The key to Messias is not a single prediction model, but the combination of three specialized Bayesian models: Double Poisson for goals, Bradley-Terry-Davidson for match results, and Hierarchical Negative Binomial for corners. Here is the architecture and the statistical reasoning behind it."
@@ -22,56 +22,56 @@ bodyEn: |
     model = "double_pois",
     dynamic_type = "seasonal"
   )
-  ```
+	```
 
-  The key diagnostics: **R-hat < 1.01** guarantees convergence of the MCMC chains. **ESS > 400** ensures precision in parameter estimation. Without these checks, the model is a black box no better than a coin flip dressed in formulas.
+The key diagnostics: **R-hat < 1.01** guarantees convergence of the MCMC chains. **ESS > 400** ensures precision in parameter estimation. Without these checks, the model is a black box no better than a coin flip dressed in formulas.
 
-  ## Model 2: Bradley-Terry-Davidson for 1X2 results
+## Model 2: Bradley-Terry-Davidson for 1X2 results
 
-  This model solves a problem that goal-based models handle poorly: **the probability of a draw**.
+This model solves a problem that goal-based models handle poorly: **the probability of a draw**.
 
-  The Bradley-Terry model compares teams in pairwise fashion. The Davidson extension adds a specific parameter for draws, capturing the fact that ties are not merely "neither wins nor loses" — they are events with their own dynamic, often underestimated by Poisson variants.
+The Bradley-Terry model compares teams in pairwise fashion. The Davidson extension adds a specific parameter for draws, capturing the fact that ties are not merely "neither wins nor loses" — they are events with their own dynamic, often underestimated by Poisson variants.
 
-  ```r
-  model_result <- btd_foot(
-    data = matches_data,
-    predict = upcoming_matches
-  )
-  ```
-  ## Model 3: Hierarchical Negative Binomial for corners
+```r
+model_result <- btd_foot(
+  data = matches_data,
+  predict = upcoming_matches
+)
+```
+## Model 3: Hierarchical Negative Binomial for corners
 
-  Corners are more frequent than goals and exhibit **overdispersion** — their variance exceeds the mean, violating the standard Poisson assumption.
+Corners are more frequent than goals and exhibit **overdispersion** — their variance exceeds the mean, violating the standard Poisson assumption.
 
-  The Negative Binomial captures this overdispersion. The model is hierarchical (implemented with `brms`) because it recognizes systematic differences across leagues and between teams:
+The Negative Binomial captures this overdispersion. The model is hierarchical (implemented with `brms`) because it recognizes systematic differences across leagues and between teams:
 
-  ```r
+```r
 
-  library(brms)
-  model_corners <- brm(
-    corners ~ (1 | league) + (1 | team_home) + (1 | team_away),
-    family = negbinomial(),
-    data = corners_data,
-    chains = 4, iter = 2000
-  )
-  ```
+library(brms)
+model_corners <- brm(
+  corners ~ (1 | league) + (1 | team_home) + (1 | team_away),
+  family = negbinomial(),
+  data = corners_data,
+  chains = 4, iter = 2000
+)
+```
 
-  This partial pooling is one of the quiet strengths of Bayesian hierarchical modeling: teams with fewer observed matches borrow information from the league‑wide distribution, stabilizing their estimates without drowning individual variability. It's a principle that applies well beyond football — from clinical trials with small sample sizes to marketing campaigns in niche markets.
+This partial pooling is one of the quiet strengths of Bayesian hierarchical modeling: teams with fewer observed matches borrow information from the league‑wide distribution, stabilizing their estimates without drowning individual variability. It's a principle that applies well beyond football — from clinical trials with small sample sizes to marketing campaigns in niche markets.
 
-  ## Weekly automated ETL
+## Weekly automated ETL
 
-  The three models are fed with data updated weekly from FBref (results + xG), Understat (game quality data), and Fotmob (real time).
+The three models are fed with data updated weekly from FBref (results + xG), Understat (game quality data), and Fotmob (real time).
 
-  The ETL pipeline extracts, normalizes, cross‑references, and loads into PostgreSQL every Monday. The models retrain in the background — computationally heavy, but invisible to the user. The system doesn't ask for attention; it just delivers updated probabilities on schedule.
+The ETL pipeline extracts, normalizes, cross‑references, and loads into PostgreSQL every Monday. The models retrain in the background — computationally heavy, but invisible to the user. The system doesn't ask for attention; it just delivers updated probabilities on schedule.
 
-  ## The transparency metric: calibration
+## The transparency metric: calibration
 
-  The acid test of any predictive model is its **calibration**: when the model says 70%, does the event happen 70% of the time?
+The acid test of any predictive model is its **calibration**: when the model says 70%, does the event happen 70% of the time?
 
-  Messias' calibration plot compares predicted probabilities against observed frequencies. A perfectly calibrated model traces a flawless diagonal. That transparency is what separates a serious statistical system from a generator of appearances — because in the world of predictions, looking smart means nothing if the numbers don't hold.
+Messias' calibration plot compares predicted probabilities against observed frequencies. A perfectly calibrated model traces a flawless diagonal. That transparency is what separates a serious statistical system from a generator of appearances — because in the world of predictions, looking smart means nothing if the numbers don't hold.
 
-  As Gneiting and Raftery put it in their seminal paper on forecast evaluation, **"The goal of probabilistic forecasting is to maximize the sharpness of the predictive distributions subject to calibration."** Calibration is the non‑negotiable foundation. Sharpness — how tightly the model concentrates its predictions around the truth — is the reward for getting that foundation right.
+As Gneiting and Raftery put it in their seminal paper on forecast evaluation, **"The goal of probabilistic forecasting is to maximize the sharpness of the predictive distributions subject to calibration."** Calibration is the non‑negotiable foundation. Sharpness — how tightly the model concentrates its predictions around the truth — is the reward for getting that foundation right.
 
-  _"The goal of probabilistic forecasting is to maximize the sharpness of the predictive distributions subject to calibration."_ — Gneiting, T. & Raftery, A. E. (2007), _Strictly Proper Scoring Rules, Prediction, and Estimation_, Journal of the American Statistical Association.
+_"The goal of probabilistic forecasting is to maximize the sharpness of the predictive distributions subject to calibration."_ — Gneiting, T. & Raftery, A. E. (2007), _Strictly Proper Scoring Rules, Prediction, and Estimation_, Journal of the American Statistical Association.
 
 ---
 

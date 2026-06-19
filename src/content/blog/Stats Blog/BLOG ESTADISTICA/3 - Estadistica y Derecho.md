@@ -1,7 +1,7 @@
 ---
 title: "Estadística y derecho: la revolución silenciosa del Legaltech"
 titleEn: "Statistics and Law: The Silent Legaltech Revolution"
-date: "2026-04-17"
+date: "2026-06-17"
 tags: ["Estadística", "Legaltech", "Predicción", "Riesgo legal", "Ciencia de datos"]
 excerpt: "El derecho siempre fue considerado un arte de argumentación cualitativa, pero la irrupción de la estadística está cambiando las reglas del juego. Este post explica cómo los modelos cuantitativos mejoran la predicción judicial, la gestión de riesgos legales y la valoración de daños."
 excerptEn: "Law has always been seen as an art of qualitative argumentation, but the emergence of statistics is changing the rules of the game. This post explains how quantitative models improve judicial prediction, legal risk management and damage assessment."

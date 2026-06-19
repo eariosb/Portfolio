@@ -51,7 +51,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                     >
                       {/* Tags row */}
                       <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.75rem", flexWrap: "wrap" }}>
-                        {post.tags.slice(0, 3).map(tag => (
+                        {(post.tags ?? []).slice(0, 3).map(tag => (
                           <span key={tag} style={{
                             padding: "0.15rem 0.6rem", borderRadius: "9999px",
                             background: color + "15", border: `1px solid ${color}35`,

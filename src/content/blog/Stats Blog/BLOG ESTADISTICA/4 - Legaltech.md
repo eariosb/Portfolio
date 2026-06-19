@@ -1,7 +1,7 @@
 ---
 title: "LegalTech en Colombia: estado del arte y fundamentos de un curso integral"
 titleEn: "LegalTech in Colombia: State of the Art and Foundations of a Comprehensive Course"
-date: "2025-03-11"
+date: "2024-07-10"
 tags: ["LegalTech", "Colombia", "IA", "Jurimetría", "Blockchain"]
 excerpt: "Colombia atraviesa un momento decisivo en la transformación digital de su sector jurídico. Leyes como la 527 de 1999, el Decreto 806 de 2020 y la Ley 1581 de 2012 conforman la base normativa. Sobre esa base se edifica un ecosistema LegalTech que los profesionales del derecho ya no pueden pasar por alto."
 excerptEn: "Colombia is at a pivotal moment in the digital transformation of its legal sector. Laws such as 527/1999, Decree 806/2020, and Law 1581 form the regulatory foundation. Upon this foundation, a LegalTech ecosystem is being built that legal professionals can no longer overlook."

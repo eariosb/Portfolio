@@ -1,7 +1,7 @@
 ---
 title: "MLM Studio: un flujo integrado, visual e interactivo para el análisis longitudinal"
 titleEn: "MLM Studio: An Integrated, Visual, and Interactive Workflow for Longitudinal Analysis"
-date: 2026-02-20
+date: 2025-03-10
 tags:
   - Modelos Mixtos
   - Shiny

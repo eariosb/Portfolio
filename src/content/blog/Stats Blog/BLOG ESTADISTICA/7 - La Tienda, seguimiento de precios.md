@@ -1,7 +1,7 @@
 ---
 title: "La Tienda: inteligencia de precios mayoristas con actualización bayesiana y enfoque temporal"
 titleEn: "La Tienda: Wholesale Price Intelligence with Bayesian Updating and Temporal Focus"
-date: "2026-02-11"
+date: "2024-09-20"
 tags: ["Bayesiano", "R", "Shiny", "Precios", "STL", "Mann-Kendall"]
 excerpt: "El comerciante minorista necesita decidir hoy cuánto comprar y a qué precio, pero la clave está en lo que ocurrirá en los próximos días. La Tienda combina actualización bayesiana, descomposición estacional y detección de tendencias para anticipar movimientos, ajustar inventarios y evitar sobrecostos por decisiones tardías."
 excerptEn: "The retail merchant needs to decide today how much to buy and at what price, but the key lies in what will happen in the coming days. La Tienda combines Bayesian updating, seasonal decomposition and trend detection to anticipate movements, adjust inventories and avoid cost overruns from late decisions."

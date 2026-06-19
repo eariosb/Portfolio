@@ -122,7 +122,7 @@ export function getAllPosts(): PostMeta[] {
     .map((file) => {
       const raw = fs.readFileSync(path.join(postsDir, file), "utf-8");
       const { data } = matter(raw);
-      return { slug: file.replace(".mdx", ""), ...data } as PostMeta;
+      return { slug: file.replace(".mdx", ""), ...data, tags: data.tags ?? [] } as PostMeta;
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
@@ -132,5 +132,5 @@ export function getPostBySlug(slug: string) {
   const raw = fs.readFileSync(file, "utf-8");
   const { data, content } = matter(raw);
   const html = mdToHtml(content);
-  return { meta: { slug, ...data } as PostMeta, html };
+  return { meta: { slug, ...data, tags: data.tags ?? [] } as PostMeta, html };
 }

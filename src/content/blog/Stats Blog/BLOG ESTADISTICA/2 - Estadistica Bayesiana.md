@@ -1,7 +1,7 @@
 ---
 title: "Estadística Bayesiana: confiabilidad basada en probabilidad, inferencia interpretable y actualización por diseño"
 titleEn: "Bayesian Statistics: Reliability Based on Probability, Interpretable Inference, and Design‑Driven Updating"
-date: "2026-04-22"
+date: "2026-03-10"
 tags: ["Bayes", "Probabilidad", "Inferencia"]
 excerpt: "El enfoque bayesiano convierte la incertidumbre en decisiones claras: desde priors genéricas hasta pronósticos que se actualizan con cada nuevo dato, sin perder coherencia."
 excerptEn: "The Bayesian approach turns uncertainty into clear decisions: from generic priors to forecasts that update with every new data point, without losing coherence."
