@@ -12,7 +12,7 @@
 
 # testing
 /coverage
-
+/Stats Blog
 # next.js
 /.next/
 /out/
