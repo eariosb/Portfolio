@@ -19,168 +19,6 @@ export interface Course {
 
 export const courses: Course[] = [
   {
-    id: "legaltech-colombia",
-    title: {
-      es: "Transformación Digital Legal en Colombia: LegalTech, IA y Nuevos Retos Jurídicos",
-      en: "Legal Digital Transformation in Colombia: LegalTech, AI and New Legal Challenges",
-    },
-    description: {
-      es: "Curso completo sobre la transformación digital del sector jurídico colombiano. Descubre cómo las leyes clave, la inteligencia artificial, el blockchain y la jurimetría abren nuevas oportunidades para abogados, desarrolladores y emprendedores LegalTech. Aprende a identificar marcos normativos, aplicar tecnologías emergentes y crear soluciones que cumplen con la regulación colombiana.",
-      en: "Comprehensive course on the digital transformation of the Colombian legal sector. Discover how key laws, artificial intelligence, blockchain and jurimetrics open new opportunities for lawyers, developers and LegalTech entrepreneurs. Learn to identify regulatory frameworks, apply emerging technologies and create solutions compliant with Colombian regulations.",
-    },
-    level: "intermediate",
-    duration: "20h",
-    image: "/images/courses/legaltech.svg",
-    tags: ["LegalTech", "IA", "Colombia", "Blockchain", "Jurimetría", "Habeas Data"],
-    url: "https://legaltech-colombia.vercel.app/",
-    modules: [
-      {
-        id: "m1",
-        title: { es: "Panorama LegalTech en Colombia: Contexto y Fundamentos", en: "LegalTech Landscape in Colombia: Context and Fundamentals" },
-        duration: "2h",
-        topics: {
-          es: ["Ecosistema LegalTech colombiano", "Principales actores y startups", "Tendencias globales y su impacto local", "Oportunidades de mercado"],
-          en: ["Colombian LegalTech ecosystem", "Key players and startups", "Global trends and local impact", "Market opportunities"],
-        },
-      },
-      {
-        id: "m2",
-        title: { es: "Marcos Normativos Clave para LegalTech en Colombia", en: "Key Regulatory Frameworks for LegalTech in Colombia" },
-        duration: "2h",
-        topics: {
-          es: ["Ley 527 de 1999 (comercio electrónico)", "Ley 1581 (protección de datos)", "Decreto 806/2020 (justicia digital)", "Regulación de firmas electrónicas"],
-          en: ["Law 527/1999 (e-commerce)", "Law 1581 (data protection)", "Decree 806/2020 (digital justice)", "Electronic signature regulation"],
-        },
-      },
-      {
-        id: "m3",
-        title: { es: "Jurimetría y Auditoría Algorítmica: Estadística en Decisiones Jurídicas", en: "Jurimetrics and Algorithmic Auditing: Statistics in Legal Decisions" },
-        duration: "2.5h",
-        topics: {
-          es: ["Jurimetría: predicción de sentencias", "Modelos estadísticos en el derecho", "Auditoría de algoritmos judiciales", "Sesgos en sistemas de IA jurídica"],
-          en: ["Jurimetrics: verdict prediction", "Statistical models in law", "Judicial algorithm auditing", "Bias in legal AI systems"],
-        },
-      },
-      {
-        id: "m4",
-        title: { es: "Identidad Digital, KYC y Autenticación en el Sector Legal", en: "Digital Identity, KYC and Authentication in the Legal Sector" },
-        duration: "2h",
-        topics: {
-          es: ["KYC digital y debida diligencia", "Autenticación biométrica", "Firma electrónica vs. digital", "eIDAS y estándares colombianos"],
-          en: ["Digital KYC and due diligence", "Biometric authentication", "Electronic vs. digital signature", "eIDAS and Colombian standards"],
-        },
-      },
-      {
-        id: "m5",
-        title: { es: "Cibercrimen y Prueba Digital: Seguridad Jurídica en la Era Digital", en: "Cybercrime and Digital Evidence: Legal Security in the Digital Age" },
-        duration: "2h",
-        topics: {
-          es: ["Tipos de delitos informáticos (Ley 1273)", "Cadena de custodia digital", "Peritaje forense digital", "Prueba digital ante la SIC y juzgados"],
-          en: ["Types of cybercrimes (Law 1273)", "Digital chain of custody", "Digital forensic expertise", "Digital evidence before courts"],
-        },
-      },
-      {
-        id: "m6",
-        title: { es: "Inteligencia Artificial Aplicada al Derecho: Métodos y Ética", en: "AI Applied to Law: Methods and Ethics" },
-        duration: "2.5h",
-        topics: {
-          es: ["NLP para análisis de contratos", "Predicción de sentencias con ML", "Ética y responsabilidad algorítmica", "Regulación de IA en Colombia"],
-          en: ["NLP for contract analysis", "Verdict prediction with ML", "Ethics and algorithmic accountability", "AI regulation in Colombia"],
-        },
-      },
-      {
-        id: "m7",
-        title: { es: "Blockchain, Smart Contracts y Nuevos Derechos Digitales", en: "Blockchain, Smart Contracts and New Digital Rights" },
-        duration: "2h",
-        topics: {
-          es: ["Funcionamiento de blockchain", "Smart contracts: validez jurídica en Colombia", "NFTs y derechos de autor", "DAOs y nuevas formas jurídicas"],
-          en: ["How blockchain works", "Smart contracts: legal validity in Colombia", "NFTs and copyright", "DAOs and new legal forms"],
-        },
-      },
-      {
-        id: "m8",
-        title: { es: "Protección de Marcas, Consumidor Digital y Habeas Data Financiero", en: "Brand Protection, Digital Consumer and Financial Habeas Data" },
-        duration: "1.5h",
-        topics: {
-          es: ["Marcas en el entorno digital", "Derechos del consumidor digital (Estatuto del Consumidor)", "Habeas data financiero y Ley 1266", "GDPR y su influencia en Colombia"],
-          en: ["Brands in the digital environment", "Digital consumer rights", "Financial habeas data and Law 1266", "GDPR influence in Colombia"],
-        },
-      },
-      {
-        id: "m9",
-        title: { es: "Habeas Data y Protección de Datos Personales", en: "Habeas Data and Personal Data Protection" },
-        duration: "2h",
-        topics: {
-          es: ["Ley 1581 de 2012: régimen general de protección de datos", "Ley 1266 de 2008: habeas data financiero", "Decreto 1377 de 2013: reglamentación de la Ley 1581", "Ley 2300, Ley 1712 (transparencia) y Ley 1341 (TIC)", "Decreto 338: actualización del régimen de protección de datos"],
-          en: ["Law 1581/2012: general data protection regime", "Law 1266/2008: financial habeas data", "Decree 1377/2013: regulation of Law 1581", "Law 2300, Law 1712 (transparency) and Law 1341 (ICT)", "Decree 338: update to the data protection regime"],
-        },
-      },
-      {
-        id: "m10",
-        title: { es: "Integración Práctica: Desarrollo de Entregables y Herramientas LegalTech", en: "Practical Integration: LegalTech Tools and Deliverables" },
-        duration: "1.5h",
-        topics: {
-          es: ["Diseño de soluciones LegalTech", "Casos de estudio: contratos inteligentes y cumplimiento normativo", "Hoja de ruta para emprendedores jurídicos", "Proyecto integrador final"],
-          en: ["LegalTech solution design", "Case studies: smart contracts and regulatory compliance", "Roadmap for legal entrepreneurs", "Final integrating project"],
-        },
-      },
-    ],
-  },
-  {
-    id: "series-tiempo-timesight",
-    title: {
-      es: "Análisis de Series de Tiempo con TimeSight",
-      en: "Time Series Analysis with TimeSight",
-    },
-    description: {
-      es: "Mini curso práctico de análisis de series temporales usando la plataforma TimeSight. Aprende el flujo completo: exploración, pruebas de estacionariedad, modelado ARIMA/ETS/TBATS, validación cruzada walk-forward y pronóstico con intervalos de credibilidad. Sin necesidad de programar — todo desde la interfaz interactiva.",
-      en: "Practical mini-course in time series analysis using the TimeSight platform. Learn the complete workflow: exploration, stationarity tests, ARIMA/ETS/TBATS modeling, walk-forward cross-validation and forecasting with credibility intervals. No programming needed — everything from the interactive interface.",
-    },
-    level: "intermediate",
-    duration: "6h",
-    image: "/images/courses/timesight.svg",
-    tags: ["Series de Tiempo", "ARIMA", "Pronóstico", "TimeSight", "R"],
-    url: "https://rios.shinyapps.io/AnalisisSeriesTiempo/",
-    modules: [
-      {
-        id: "m1",
-        title: { es: "Fundamentos y Carga de Datos", en: "Fundamentals and Data Loading" },
-        duration: "1h",
-        topics: {
-          es: ["Conceptos de series de tiempo", "Formatos de datos aceptados", "Manejo de fechas y frecuencias", "Vista previa y transformaciones (log, diff, Box-Cox)"],
-          en: ["Time series concepts", "Accepted data formats", "Date and frequency handling", "Preview and transformations (log, diff, Box-Cox)"],
-        },
-      },
-      {
-        id: "m2",
-        title: { es: "Análisis Exploratorio", en: "Exploratory Analysis" },
-        duration: "1.5h",
-        topics: {
-          es: ["Tests de estacionariedad: ADF, KPSS, Phillips-Perron", "ACF y PACF: interpretación práctica", "Descomposición STL", "Detección de puntos de cambio estructural"],
-          en: ["Stationarity tests: ADF, KPSS, Phillips-Perron", "ACF and PACF: practical interpretation", "STL decomposition", "Structural change point detection"],
-        },
-      },
-      {
-        id: "m3",
-        title: { es: "Modelado: ARIMA, ETS y TBATS", en: "Modeling: ARIMA, ETS and TBATS" },
-        duration: "2h",
-        topics: {
-          es: ["Auto-ARIMA: parámetros p, d, q", "Suavizamiento exponencial (ETS)", "TBATS para múltiples estacionalidades", "Diagnósticos de residuos: Ljung-Box, ARCH"],
-          en: ["Auto-ARIMA: p, d, q parameters", "Exponential smoothing (ETS)", "TBATS for multiple seasonalities", "Residuals diagnostics: Ljung-Box, ARCH"],
-        },
-      },
-      {
-        id: "m4",
-        title: { es: "Validación y Pronóstico", en: "Validation and Forecasting" },
-        duration: "1.5h",
-        topics: {
-          es: ["Walk-forward cross-validation", "Interval Score y métricas de comparación", "Fan charts y rangos de credibilidad", "Exportación de resultados e informes PDF"],
-          en: ["Walk-forward cross-validation", "Interval Score and comparison metrics", "Fan charts and credibility ranges", "Results export and PDF reports"],
-        },
-      },
-    ],
-  },
-  {
     id: "bayesian-aplicado",
     title: {
       es: "Análisis Bayesiano Aplicado en R",
@@ -392,6 +230,177 @@ export const courses: Course[] = [
         topics: {
           es: ["Jamovi y JASP como alternativa a SPSS", "Casos: enfermería, farmacia, psicología, fisioterapia, nutrición", "Interpretación orientada a la toma de decisiones", "Proyecto integrador"],
           en: ["Jamovi and JASP as SPSS alternatives", "Cases: nursing, pharmacy, psychology, physical therapy, nutrition", "Decision-oriented interpretation", "Integrative project"],
+        },
+      },
+    ],
+  },
+  {
+    id: "legaltech-colombia",
+    title: {
+      es: "Transformación Digital Legal en Colombia: LegalTech, IA y Nuevos Retos Jurídicos",
+      en: "Legal Digital Transformation in Colombia: LegalTech, AI and New Legal Challenges",
+    },
+    description: {
+      es: "Curso completo sobre la transformación digital del sector jurídico colombiano. Descubre cómo las leyes clave, la inteligencia artificial, el blockchain y la jurimetría abren nuevas oportunidades para abogados, desarrolladores y emprendedores LegalTech. Aprende a identificar marcos normativos, aplicar tecnologías emergentes y crear soluciones que cumplen con la regulación colombiana.",
+      en: "Comprehensive course on the digital transformation of the Colombian legal sector. Discover how key laws, artificial intelligence, blockchain and jurimetrics open new opportunities for lawyers, developers and LegalTech entrepreneurs. Learn to identify regulatory frameworks, apply emerging technologies and create solutions compliant with Colombian regulations.",
+    },
+    level: "intermediate",
+    duration: "20h",
+    image: "/images/courses/legaltech.svg",
+    tags: ["LegalTech", "IA", "Colombia", "Blockchain", "Jurimetría", "Habeas Data"],
+    url: "https://legaltech-colombia.vercel.app/",
+    modules: [
+      {
+        id: "m1",
+        title: { es: "Panorama LegalTech en Colombia: Contexto y Fundamentos", en: "LegalTech Landscape in Colombia: Context and Fundamentals" },
+        duration: "2h",
+        topics: {
+          es: ["Ecosistema LegalTech colombiano", "Principales actores y startups", "Tendencias globales y su impacto local", "Oportunidades de mercado"],
+          en: ["Colombian LegalTech ecosystem", "Key players and startups", "Global trends and local impact", "Market opportunities"],
+        },
+      },
+      {
+        id: "m2",
+        title: { es: "Marcos Normativos Clave para LegalTech en Colombia", en: "Key Regulatory Frameworks for LegalTech in Colombia" },
+        duration: "2h",
+        topics: {
+          es: ["Ley 527 de 1999 (comercio electrónico)", "Ley 1581 (protección de datos)", "Decreto 806/2020 (justicia digital)", "Regulación de firmas electrónicas"],
+          en: ["Law 527/1999 (e-commerce)", "Law 1581 (data protection)", "Decree 806/2020 (digital justice)", "Electronic signature regulation"],
+        },
+      },
+      {
+        id: "m3",
+        title: { es: "Jurimetría y Auditoría Algorítmica: Estadística en Decisiones Jurídicas", en: "Jurimetrics and Algorithmic Auditing: Statistics in Legal Decisions" },
+        duration: "2.5h",
+        topics: {
+          es: ["Jurimetría: predicción de sentencias", "Modelos estadísticos en el derecho", "Auditoría de algoritmos judiciales", "Sesgos en sistemas de IA jurídica"],
+          en: ["Jurimetrics: verdict prediction", "Statistical models in law", "Judicial algorithm auditing", "Bias in legal AI systems"],
+        },
+      },
+      {
+        id: "m4",
+        title: { es: "Identidad Digital, KYC y Autenticación en el Sector Legal", en: "Digital Identity, KYC and Authentication in the Legal Sector" },
+        duration: "2h",
+        topics: {
+          es: ["KYC digital y debida diligencia", "Autenticación biométrica", "Firma electrónica vs. digital", "eIDAS y estándares colombianos"],
+          en: ["Digital KYC and due diligence", "Biometric authentication", "Electronic vs. digital signature", "eIDAS and Colombian standards"],
+        },
+      },
+      {
+        id: "m5",
+        title: { es: "Cibercrimen y Prueba Digital: Seguridad Jurídica en la Era Digital", en: "Cybercrime and Digital Evidence: Legal Security in the Digital Age" },
+        duration: "2h",
+        topics: {
+          es: ["Tipos de delitos informáticos (Ley 1273)", "Cadena de custodia digital", "Peritaje forense digital", "Prueba digital ante la SIC y juzgados"],
+          en: ["Types of cybercrimes (Law 1273)", "Digital chain of custody", "Digital forensic expertise", "Digital evidence before courts"],
+        },
+      },
+      {
+        id: "m6",
+        title: { es: "Inteligencia Artificial Aplicada al Derecho: Métodos y Ética", en: "AI Applied to Law: Methods and Ethics" },
+        duration: "2.5h",
+        topics: {
+          es: ["NLP para análisis de contratos", "Predicción de sentencias con ML", "Ética y responsabilidad algorítmica", "Regulación de IA en Colombia"],
+          en: ["NLP for contract analysis", "Verdict prediction with ML", "Ethics and algorithmic accountability", "AI regulation in Colombia"],
+        },
+      },
+      {
+        id: "m7",
+        title: { es: "Blockchain, Smart Contracts y Nuevos Derechos Digitales", en: "Blockchain, Smart Contracts and New Digital Rights" },
+        duration: "2h",
+        topics: {
+          es: ["Funcionamiento de blockchain", "Smart contracts: validez jurídica en Colombia", "NFTs y derechos de autor", "DAOs y nuevas formas jurídicas"],
+          en: ["How blockchain works", "Smart contracts: legal validity in Colombia", "NFTs and copyright", "DAOs and new legal forms"],
+        },
+      },
+      {
+        id: "m8",
+        title: { es: "Protección de Marcas, Consumidor Digital y Habeas Data Financiero", en: "Brand Protection, Digital Consumer and Financial Habeas Data" },
+        duration: "1.5h",
+        topics: {
+          es: ["Marcas en el entorno digital", "Derechos del consumidor digital (Estatuto del Consumidor)", "Habeas data financiero y Ley 1266", "GDPR y su influencia en Colombia"],
+          en: ["Brands in the digital environment", "Digital consumer rights", "Financial habeas data and Law 1266", "GDPR influence in Colombia"],
+        },
+      },
+      {
+        id: "m9",
+        title: { es: "Habeas Data y Protección de Datos Personales", en: "Habeas Data and Personal Data Protection" },
+        duration: "2h",
+        topics: {
+          es: ["Ley 1581 de 2012: régimen general de protección de datos", "Ley 1266 de 2008: habeas data financiero", "Decreto 1377 de 2013: reglamentación de la Ley 1581", "Ley 2300, Ley 1712 (transparencia) y Ley 1341 (TIC)", "Decreto 338: actualización del régimen de protección de datos"],
+          en: ["Law 1581/2012: general data protection regime", "Law 1266/2008: financial habeas data", "Decree 1377/2013: regulation of Law 1581", "Law 2300, Law 1712 (transparency) and Law 1341 (ICT)", "Decree 338: update to the data protection regime"],
+        },
+      },
+      {
+        id: "m10",
+        title: { es: "Integración Práctica: Desarrollo de Entregables y Herramientas LegalTech", en: "Practical Integration: LegalTech Tools and Deliverables" },
+        duration: "1.5h",
+        topics: {
+          es: ["Diseño de soluciones LegalTech", "Casos de estudio: contratos inteligentes y cumplimiento normativo", "Hoja de ruta para emprendedores jurídicos", "Proyecto integrador final"],
+          en: ["LegalTech solution design", "Case studies: smart contracts and regulatory compliance", "Roadmap for legal entrepreneurs", "Final integrating project"],
+        },
+      },
+    ],
+  },
+  {
+    id: "obsidian-juridico",
+    title: {
+      es: "Curso Obsidian para Despachos Jurídicos",
+      en: "Obsidian Course for Legal Practices",
+    },
+    description: {
+      es: "Curso práctico para transformar la gestión documental y del conocimiento en despachos jurídicos usando Obsidian. Desde la bóveda compartida cifrada hasta inteligencia artificial local con Ollama, pasando por Markdown procesal, plantillas para litigación colombiana, consultas Dataview, bitácora procesal colectiva y protocolos de colaboración sin conflictos. 17 módulos con ejercicios aplicables y anexos descargables: plantillas completas, consultas Dataview, protocolo de check-in/check-out, simulador de conflictos y bóveda de demostración.",
+      en: "Practical course to transform document and knowledge management in law firms using Obsidian. From the encrypted shared vault to local AI with Ollama, covering procedural Markdown, templates for Colombian litigation, Dataview queries, a collective case log and conflict-free collaboration protocols. 17 modules with applied exercises and downloadable annexes: complete templates, Dataview queries, check-in/check-out protocol, conflict simulator and a demo vault.",
+    },
+    level: "intermediate",
+    duration: "15h",
+    image: "/images/courses/obsidian-juridico.svg",
+    tags: ["Obsidian", "LegalTech", "Markdown", "Dataview", "Gestión del Conocimiento", "IA Local"],
+    url: "https://obsidian-juridico.vercel.app/",
+    modules: [
+      {
+        id: "m1",
+        title: { es: "Fundamentos: La Bóveda Compartida", en: "Fundamentals: The Shared Vault" },
+        duration: "3h",
+        topics: {
+          es: ["La bóveda compartida como ventaja competitiva", "Puesta en marcha de la bóveda del despacho", "Estructura de carpetas y configuración común", "Sintaxis Markdown para la redacción procesal"],
+          en: ["The shared vault as a competitive advantage", "Setting up the firm's vault", "Folder structure and shared configuration", "Markdown syntax for procedural drafting"],
+        },
+      },
+      {
+        id: "m2",
+        title: { es: "Plantillas y Red de Conocimiento Jurídico", en: "Templates and Legal Knowledge Network" },
+        duration: "3h",
+        topics: {
+          es: ["Plantillas para la litigación colombiana", "Metadatos YAML para fichas de cliente y caso", "Red de conocimiento jurídico interconectado", "Enlaces bidireccionales: normas, jurisprudencia y casos"],
+          en: ["Templates for Colombian litigation", "YAML metadata for client and case files", "Interconnected legal knowledge network", "Bidirectional links: statutes, case law and cases"],
+        },
+      },
+      {
+        id: "m3",
+        title: { es: "Consulta, Bitácora y Colaboración", en: "Querying, Logging and Collaboration" },
+        duration: "3h",
+        topics: {
+          es: ["Dataview como motor de consulta del despacho", "Tableros de casos activos y vencimientos", "Bitácora procesal colectiva con notas diarias", "Colaboración sin conflictos con Obsidian Sync"],
+          en: ["Dataview as the firm's query engine", "Dashboards for active cases and deadlines", "Collective case log with daily notes", "Conflict-free collaboration with Obsidian Sync"],
+        },
+      },
+      {
+        id: "m4",
+        title: { es: "Trazabilidad, Seguridad y Adopción", en: "Traceability, Security and Adoption" },
+        duration: "3h",
+        topics: {
+          es: ["Escritos vivos y trazabilidad de cambios", "Exportación a PDF con formato forense", "Privacidad, ética y respaldo del sistema", "Curva de adopción: implementación progresiva"],
+          en: ["Living documents and change traceability", "PDF export with forensic formatting", "Privacy, ethics and system backup", "Adoption curve: progressive rollout"],
+        },
+      },
+      {
+        id: "m5",
+        title: { es: "IA Local y Anexos Prácticos", en: "Local AI and Practical Annexes" },
+        duration: "3h",
+        topics: {
+          es: ["Inteligencia artificial local con Ollama", "Anexo A: plantillas civil, penal, laboral y tutela", "Anexo B-C: consultas Dataview y protocolo check-in/check-out", "Anexo D-E: simulador de conflictos y bóveda de demostración"],
+          en: ["Local AI with Ollama", "Annex A: templates for civil, criminal, labor and tutela cases", "Annex B-C: Dataview queries and check-in/check-out protocol", "Annex D-E: conflict simulator and demo vault"],
         },
       },
     ],
