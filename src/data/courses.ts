@@ -187,13 +187,14 @@ export const courses: Course[] = [
       en: "Applied Bayesian Analysis in R",
     },
     description: {
-      es: "Curso aplicado de estadística bayesiana con R. Desde el teorema de Bayes hasta modelos jerárquicos y MCMC con Stan. Aplicaciones reales: modelos mixtos, predicción deportiva con footBayes, inteligencia de precios con modelos conjugados. Énfasis en interpretación y comunicación de resultados.",
-      en: "Applied Bayesian statistics course with R. From Bayes theorem to hierarchical models and MCMC with Stan. Real applications: mixed models, sports prediction with footBayes, price intelligence with conjugate models. Emphasis on interpretation and communication of results.",
+      es: "Aplicación interactiva basada en *Statistical Rethinking* de Richard McElreath, con 15 capítulos organizados en secciones (de \"El Golem de Praga\" a MCMC, GLM, modelos multinivel, covarianza y datos faltantes). Teoría, fórmulas matemáticas renderizadas con KaTeX y código R ejecutable directamente en el navegador vía WebR — sin instalar nada. Disponible en español e inglés.",
+      en: "Interactive web app based on Richard McElreath's *Statistical Rethinking*, with 15 chapters organized into sections (from \"The Golem of Prague\" through MCMC, GLMs, multilevel models, covariance and missing data). Theory, math formulas rendered with KaTeX, and live R code you run right in the browser via WebR — no installation required. Available in English and Spanish.",
     },
     level: "advanced",
     duration: "10h",
     image: "/images/courses/bayesian.svg",
     tags: ["Bayesiano", "Stan", "MCMC", "R", "Modelos Jerárquicos"],
+    url: "https://bayesian-statistics.vercel.app/en",
     modules: [
       {
         id: "m1",
