@@ -19,6 +19,60 @@ export interface Course {
 
 export const courses: Course[] = [
   {
+    id: "gamlss-regresion-distribucional",
+    title: {
+      es: "GAMLSS: Regresión Distribucional Aplicada",
+      en: "GAMLSS: Applied Distributional Regression",
+    },
+    description: {
+      es: "Curso interactivo de 20 módulos sobre el marco GAMLSS (Generalized Additive Models for Location, Scale and Shape): modelar la distribución completa de la respuesta —media, dispersión, asimetría y curtosis— como función de covariables. Construido con Next.js 15, TypeScript y MDX, con código R ejecutable, quizzes, flashcards 3D, visualizadores de distribuciones y 8 datasets reproducibles. Aplicaciones profesionales en seguros de crédito y caución, riesgo de crédito IFRS 9 (PD, LGD, IBNR), confiabilidad, control de calidad, inventarios y curvas de centiles (método LMS).",
+      en: "Interactive 20-module course on the GAMLSS framework (Generalized Additive Models for Location, Scale and Shape): modeling the full response distribution —mean, dispersion, skewness and kurtosis— as functions of covariates. Built with Next.js 15, TypeScript and MDX, with executable R code, quizzes, 3D flashcards, distribution explorers and 8 reproducible datasets. Professional applications in credit & surety insurance, IFRS 9 credit risk (PD, LGD, IBNR), reliability, quality control, inventory management and centile curves (LMS method).",
+    },
+    level: "advanced",
+    duration: "24h",
+    image: "/images/courses/gamlss.svg",
+    tags: ["GAMLSS", "R", "Regresión Distribucional", "Seguros", "IFRS 9", "P-splines"],
+    url: "https://cursogamlss.vercel.app/",
+    modules: [
+      {
+        id: "m1",
+        title: { es: "Bloque I — Fundamentos", en: "Block I — Foundations" },
+        duration: "5h",
+        topics: {
+          es: ["¿Por qué modelar más que la media?", "El marco GAMLSS y el arsenal de distribuciones", "Diagnóstico: residuos cuantílicos y worm plots", "Suavizados: P-splines y no linealidad"],
+          en: ["Why model more than the mean?", "The GAMLSS framework and the distribution arsenal", "Diagnostics: quantile residuals and worm plots", "Smoothing: P-splines and nonlinearity"],
+        },
+      },
+      {
+        id: "m2",
+        title: { es: "Bloque II — Construcción y Selección de Modelos", en: "Block II — Model Building and Selection" },
+        duration: "6h",
+        topics: {
+          es: ["Efectos aleatorios y selección con GAIC", "Conteos: Poisson, NBI y ceros inflados", "Proporciones: Beta e infladas en 0 y 1", "Colas pesadas: BCT y GB2"],
+          en: ["Random effects and selection with GAIC", "Counts: Poisson, NBI and zero inflation", "Proportions: Beta and 0/1-inflated", "Heavy tails: BCT and GB2"],
+        },
+      },
+      {
+        id: "m3",
+        title: { es: "Bloque III — Los Dominios en Profundidad", en: "Block III — Domains in Depth" },
+        duration: "8h",
+        topics: {
+          es: ["Centiles y método LMS · Confiabilidad con censura (Weibull, log-Normal)", "Demanda intermitente e inventarios", "Riesgo de crédito: PD binomial y LGD con BEINF", "Reservas IBNR y tarificación frecuencia-severidad"],
+          en: ["Centiles and the LMS method · Reliability with censoring (Weibull, log-Normal)", "Intermittent demand and inventories", "Credit risk: binomial PD and LGD with BEINF", "IBNR reserving and frequency-severity pricing"],
+        },
+      },
+      {
+        id: "m4",
+        title: { es: "Bloque IV — Frontera y Síntesis", en: "Block IV — Frontier and Synthesis" },
+        duration: "5h",
+        topics: {
+          es: ["gamlss2: el nuevo ecosistema", "Proyecto final: modelo IFRS 9 completo", "Horizontes: Bayesian GAMLSS y WebR", "Renderizado estático con preparación para R en el navegador"],
+          en: ["gamlss2: the new ecosystem", "Final project: a complete IFRS 9 model", "Horizons: Bayesian GAMLSS and WebR", "Static rendering with in-browser R (WebR) roadmap"],
+        },
+      },
+    ],
+  },
+  {
     id: "bayesian-aplicado",
     title: {
       es: "Análisis Bayesiano Aplicado en R",

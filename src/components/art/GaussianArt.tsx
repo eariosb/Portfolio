@@ -5,7 +5,9 @@ export function GaussianArt({ className = "" }: { className?: string }) {
     const x = (i / 119) * 280;
     const t = (i / 119) * 6 - 3;
     const y = 80 - 65 * Math.exp(-(t * t) / 2);
-    return `${x},${y}`;
+    // Precisión fija: evita hydration mismatch por diferencias
+    // de punto flotante entre servidor (Node) y navegador
+    return `${x.toFixed(2)},${y.toFixed(2)}`;
   }).join(" ");
 
   return (
