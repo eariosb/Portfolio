@@ -84,7 +84,7 @@ export default function AnimatedHero({ labels, portfolioPath, contactPath }: Her
 
   // Skills data
   const skills = [
-    { icon: BarChart2,  label: "Bayesiano",  color: "#2A5CFF" },
+    { icon: BarChart2,  label: "Estadística Aplicada",  color: "#2A5CFF" },
     { icon: Brain,      label: "ML / IA",    color: "#00C2FF" },
     { icon: TrendingUp, label: "Analítica",  color: "#2A5CFF" },
     { icon: Scale,      label: "LegalTech",  color: "#00C2FF" },
