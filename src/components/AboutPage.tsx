@@ -93,7 +93,7 @@ export default function AboutPage({ locale, t }: AboutPageProps) {
       label: locale === "es" ? "Análisis de datos" : "Data Analysis",
       color: "#2A5CFF",
       items: [
-        { icon: BarChart2,  label: locale === "es" ? "Bayesiano" : "Bayesian" },
+        { icon: BarChart2,  label: locale === "es" ? "Estadística Aplicada" : "Applied Statistics" },
         { icon: Brain,      label: "ML / IA" },
         { icon: TrendingUp, label: locale === "es" ? "Series de tiempo" : "Time Series" },
         { icon: Layers,     label: locale === "es" ? "Regresión / MLM" : "Regression / MLM" },

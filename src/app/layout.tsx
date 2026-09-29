@@ -7,7 +7,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 
 export const metadata: Metadata = {
   title: "Esneider Ríos",
-  description: "Datos en decisiones, complejidad en claridad. Estadístico UNAL Medellín. Análisis bayesiano, ML, Shiny Apps, LegalTech.",
+  description: "Datos en decisiones, complejidad en claridad. Estadístico UNAL Medellín. Estadística Aplicada, Shiny Apps, LegalTech.",
   themeColor: "#0A1128",
 };
 
